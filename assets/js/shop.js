@@ -9,6 +9,7 @@
 
   var WA = '79885192525';
   var TG = 'https://t.me/furnityra_rostov';
+  var MAX = 'https://max.ru/'; /* TODO: ссылка на профиль магазина в Max */
   var PER_PAGE = 20;
   var LISTS = { hit: 'Хиты продаж', sale: 'Акции', 'new': 'Новинки' };
   /* порядок фильтров — как в привычных каталогах фурнитуры */
@@ -32,7 +33,6 @@
     return n.toLocaleString('ru-RU', { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: 2 }) + ' ₽';
   }
   function unitPrice(p) { return money(Math.round(p.opt / p.pack * 100) / 100); }
-  function art(p) { return p.art.slice(0, 3) + '-' + p.art.slice(3); }
   function subOf(p) {
     var c = cats[p.cat];
     for (var i = 0; i < c.subs.length; i++) if (c.subs[i].slug === p.sub) return c.subs[i];
@@ -62,7 +62,6 @@
         '<span class="pcard__name">' + esc(p.name) + '</span>' +
       '</a>' +
       '<p class="pcard__meta">Цена за единицу: <b>' + unitPrice(p) + '</b></p>' +
-      '<p class="pcard__meta">Артикул: <span>' + art(p) + '</span></p>' +
       '<p class="pcard__price"><b>' + money(p.opt) + '</b> <span class="pcard__tag">опт</span>' +
         (p.old ? ' <s>' + money(p.old) + '</s>' : '') + '</p>' +
       '<p class="pcard__retail">' + money(p.retail, true) + ' <span>розница</span></p>' +
@@ -75,6 +74,14 @@
       return '<li>' + (last ? '<span aria-current="page">' + esc(it[0]) + '</span>'
         : '<a href="' + it[1] + '">' + esc(it[0]) + '</a>') + '</li>';
     }).join('') + '</ol>';
+  }
+
+  /* значок мессенджера как у приложения */
+  function appLink(id, name, href) {
+    var ico = id === 'max'
+      ? '<img class="app" src="assets/img/max-logo.png" width="40" height="40" alt="">'
+      : '<span class="app app--' + id + '"><svg width="22" height="22" aria-hidden="true"><use href="#i-' + (id === 'tg' ? 'tg2' : 'wa') + '"></use></svg></span>';
+    return '<a class="app-link app-link--lg" href="' + href + '" target="_blank" rel="noopener" aria-label="Написать в ' + name + '" title="' + name + '">' + ico + '</a>';
   }
 
   function byPop(a, b) { return b.pop - a.pop; }
@@ -113,11 +120,9 @@
       tiles.remove();
     } else if (cat) {
       tiles.innerHTML = cat.subs.map(function (s, i) {
-        var n = D.products.filter(function (p) { return p.cat === cat.slug && p.sub === s.slug; }).length;
         return '<li><a class="subcat" href="category.html?c=' + cat.slug + '&s=' + s.slug + '">' +
           '<span class="subcat__media">' + picture(cat.img, '', 'subcat__img', (i * 37) % 100, true) + '</span>' +
-          '<span class="subcat__name">' + esc(s.name) + '</span>' +
-          '<span class="subcat__count">' + n + ' ' + plural(n, 'товар', 'товара', 'товаров') + '</span></a></li>';
+          '<span class="subcat__name">' + esc(s.name) + '</span></a></li>';
       }).join('');
     } else {
       tiles.classList.add('subcats--chips');
@@ -337,43 +342,39 @@
       [p.name, '']
     ]);
 
-    var specs = [['Артикул', art(p)], ['В упаковке', p.pack + ' ' + p.unit]]
+    var specs = [['В упаковке', p.pack + ' ' + p.unit]]
       .concat(Object.keys(p.attrs).map(function (k) { return [k, p.attrs[k]]; }));
     var brief = Object.keys(p.attrs).slice(0, 4);
-    var msg = 'Здравствуйте! Хочу заказать: ' + p.name + ', артикул ' + art(p) + '.';
+    var msg = 'Здравствуйте! Хочу заказать: ' + p.name + '.';
 
     root.innerHTML =
       '<h1 class="product__title">' + esc(p.name) + '</h1>' +
       '<div class="product__grid">' +
         '<div class="product__media">' + picture(cat.img, p.name, 'product__img', p.pos, true) + '</div>' +
         '<div class="product__info">' +
-          '<p class="product__art">Артикул: ' + art(p) + '</p>' +
           '<p class="product__label">Оптовая цена</p>' +
           '<p class="product__price">' + money(p.opt) +
             (p.old ? ' <s>' + money(p.old) + '</s>' : '') +
             '<span class="hint" tabindex="0" aria-label="Об оптовой цене">i<span class="hint__text" role="tooltip">Оптовая цена действует для оптовых покупателей. Условия уточняйте у продавца.</span></span></p>' +
           '<p class="product__retail">' + money(p.retail, true) + ' <span>розница</span></p>' +
           '<p class="product__unit">Цена за единицу: <b>' + unitPrice(p) + '</b> · в упаковке ' + p.pack + ' ' + p.unit + '</p>' +
-          '<div class="product__actions">' +
-            '<a class="btn btn--arrow" href="https://wa.me/' + WA + '?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">Заказать в WhatsApp' +
-              '<svg class="btn__arrow" aria-hidden="true"><use href="#i-arrow"></use></svg></a>' +
-            '<a class="btn btn--ghost" href="' + TG + '" target="_blank" rel="noopener">Telegram</a>' +
-          '</div>' +
-          '<p class="product__note">Отправьте артикул в мессенджер&nbsp;— подтвердим наличие и&nbsp;стоимость.</p>' +
+          '<details class="order-pick">' +
+            '<summary class="btn btn--arrow">Оформить заказ<svg class="btn__arrow" aria-hidden="true"><use href="#i-arrow"></use></svg></summary>' +
+            '<div class="order-pick__panel"><span class="order-pick__label">Написать в</span>' +
+              appLink('tg', 'Telegram', TG) + appLink('max', 'Max', MAX) +
+              appLink('wa', 'WhatsApp', 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg)) + '</div>' +
+          '</details>' +
+          '<p class="product__note">Отправьте название в мессенджер&nbsp;— подтвердим наличие и&nbsp;стоимость.</p>' +
           '<dl class="product__brief">' + brief.map(function (k) {
             return '<div><dt>' + esc(k) + '</dt><dd>' + esc(p.attrs[k]) + '</dd></div>';
           }).join('') + '</dl>' +
           '<a class="product__all" href="#specs">Все характеристики <svg viewBox="0 0 432 324" aria-hidden="true"><use href="#i-chev"></use></svg></a>' +
         '</div>' +
       '</div>' +
-      '<details class="specs" id="specs" open><summary class="specs__head">Характеристики</summary>' +
+      '<section class="specs" id="specs"><h2 class="specs__head">Характеристики</h2>' +
         '<table class="specs__table"><tbody>' + specs.map(function (r) {
           return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td></tr>';
-        }).join('') + '</tbody></table></details>';
-
-    $('specs').previousElementSibling.querySelector('.product__all').addEventListener('click', function () {
-      $('specs').open = true;
-    });
+        }).join('') + '</tbody></table></section>';
 
     var similar = D.products.filter(function (q) { return q.sub === p.sub && q.cat === p.cat && q.id !== p.id; })
       .sort(byPop).slice(0, 4);
