@@ -10,7 +10,7 @@
   var WA = '79885192525';
   var TG = 'https://t.me/furnityra_rostov';
   var PER_PAGE = 20;
-  var LISTS = { hit: 'Хиты продаж', sale: 'Акции', 'new': 'Новинки', back: 'Снова в продаже' };
+  var LISTS = { hit: 'Хиты продаж', sale: 'Акции', 'new': 'Новинки' };
   /* порядок фильтров — как в привычных каталогах фурнитуры */
   var ATTR_ORDER = ['Материал', 'Страна производитель', 'Вес', 'Цвет', 'Длина', 'Толщина', 'Ширина',
     'Диаметр', 'Высота', 'Размер', 'Узор', 'Номер цвета'];
@@ -81,41 +81,6 @@
   function $(id) { return document.getElementById(id); }
 
   /* ======================================================================
-     Каталог: вкладки «Хиты / Акции / Новинки / Снова в продаже»
-     ====================================================================== */
-  function initCatalog() {
-    var tabs = [].slice.call(document.querySelectorAll('.picks__tab'));
-    var grid = $('picks-grid');
-    var more = $('picks-more');
-    if (!tabs.length || !grid) return;
-
-    function show(list) {
-      tabs.forEach(function (t) {
-        var on = t.getAttribute('data-list') === list;
-        t.setAttribute('aria-selected', String(on));
-        t.tabIndex = on ? 0 : -1;
-      });
-      var items = D.products.filter(function (p) { return p.flags[list]; }).sort(byPop);
-      grid.innerHTML = items.slice(0, 8).map(card).join('');
-      more.href = 'category.html?list=' + list;
-      more.textContent = 'Все ' + LISTS[list].toLowerCase() + ' (' + items.length + ')';
-    }
-
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { show(t.getAttribute('data-list')); });
-      /* стрелки переключают вкладки, как положено в tablist */
-      t.addEventListener('keydown', function (e) {
-        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (!d) return;
-        var next = tabs[(i + d + tabs.length) % tabs.length];
-        next.focus();
-        next.click();
-      });
-    });
-    show('hit');
-  }
-
-  /* ======================================================================
      Категория / подборка: подкатегории, фильтры, сортировка, страницы
      ====================================================================== */
   function initCategory() {
@@ -143,12 +108,13 @@
 
     /* плитки подкатегорий (или соседних подборок) */
     var tiles = $('subcats');
-    if (cat) {
+    /* в подгруппе плитки не нужны — сразу её товары */
+    if (sub) {
+      tiles.remove();
+    } else if (cat) {
       tiles.innerHTML = cat.subs.map(function (s, i) {
         var n = D.products.filter(function (p) { return p.cat === cat.slug && p.sub === s.slug; }).length;
-        var on = sub && sub.slug === s.slug;
-        return '<li><a class="subcat' + (on ? ' is-active' : '') + '" href="category.html?c=' + cat.slug +
-          (on ? '' : '&s=' + s.slug) + '"' + (on ? ' aria-current="page"' : '') + '>' +
+        return '<li><a class="subcat" href="category.html?c=' + cat.slug + '&s=' + s.slug + '">' +
           '<span class="subcat__media">' + picture(cat.img, '', 'subcat__img', (i * 37) % 100, true) + '</span>' +
           '<span class="subcat__name">' + esc(s.name) + '</span>' +
           '<span class="subcat__count">' + n + ' ' + plural(n, 'товар', 'товара', 'товаров') + '</span></a></li>';
@@ -304,14 +270,22 @@
 
     var grid = $('products');
     var pagerEl = $('pager');
+    /* вторая навигация по страницам — над товарами, как в привычных каталогах */
+    var pagerTop = pagerEl.cloneNode(false);
+    pagerTop.id = 'pager-top';
+    pagerTop.className = 'pager pager--top';
+    pagerTop.setAttribute('aria-label', 'Страницы каталога, сверху');
+    grid.parentNode.insertBefore(pagerTop, grid);
     var countEl = $('shop-count');
 
-    pagerEl.addEventListener('click', function (e) {
+    function onPager(e) {
       var b = e.target.closest('[data-page]');
       if (!b) return;
       state.page = parseInt(b.getAttribute('data-page'), 10);
       render(true);
-    });
+    }
+    pagerEl.addEventListener('click', onPager);
+    pagerTop.addEventListener('click', onPager);
 
     function render(scroll) {
       var items = sorted(base.filter(passes));
@@ -321,7 +295,7 @@
 
       grid.innerHTML = slice.length ? slice.map(card).join('')
         : '<li class="shop__empty">По выбранным фильтрам ничего не нашлось. Попробуйте сбросить часть условий или <a href="' + TG + '" target="_blank" rel="noopener">пришлите фото</a>&nbsp;— подберём.</li>';
-      pagerEl.innerHTML = pager(pages, state.page);
+      pagerEl.innerHTML = pagerTop.innerHTML = pager(pages, state.page);
       countEl.textContent = items.length + ' ' + plural(items.length, 'товар', 'товара', 'товаров');
 
       sortBtns.forEach(function (b) {
@@ -418,7 +392,6 @@
       '<p>Возможно, ссылка устарела. <a href="catalog.html">Перейти в каталог</a></p></div>';
   }
 
-  if (page === 'catalog') initCatalog();
   if (page === 'category') initCategory();
   if (page === 'product') initProduct();
 })();

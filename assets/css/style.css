@@ -766,9 +766,7 @@ body {
 .finale__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; min-width: 46rem; }
 
 /* --- Каталог: подборки --------------------------------------------------- */
-.picks { padding-top: 4rem; }
-.picks__tabs { display: flex; flex-wrap: wrap; gap: 1.2rem; }
-.picks__tab, .chip-link {
+.chip-link {
   display: inline-flex;
   align-items: center;
   min-height: 5rem;
@@ -783,12 +781,18 @@ body {
   cursor: pointer;
   transition: background-color .2s ease, border-color .2s ease, color .2s ease;
 }
-.picks__tab:hover, .chip-link:hover { border-color: var(--brown); }
-.picks__tab[aria-selected="true"], .chip-link.is-active { background: var(--brown); border-color: var(--brown); color: var(--on-brown); }
-.picks__more { display: flex; justify-content: center; margin-top: 4rem; }
-.assortment--catalog { padding: 12rem 0 0; }
-.assortment--catalog + .finale { padding-top: 14rem; }
-.cat__subs { margin-top: -.8rem; font-size: 1.4rem; line-height: 2rem; color: var(--muted); }
+.chip-link:hover { border-color: var(--brown); }
+.chip-link.is-active { background: var(--brown); border-color: var(--brown); color: var(--on-brown); }
+/* каталог: полоса подборок и сетка основных групп */
+.groups { padding: 3.2rem 0 0; }
+.quick { display: flex; flex-wrap: wrap; gap: 1rem 3.2rem; padding: 1.8rem 3.2rem; border-radius: 2.4rem; background: var(--pink-pill); }
+.quick__link { font-size: 1.8rem; font-weight: 600; text-decoration: none; }
+.quick__link:hover { color: var(--pink); text-decoration: underline; text-underline-offset: .5rem; }
+.subcats.subcats--groups { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2.4rem; }
+.subcat--group .subcat__name { font-size: 1.7rem; line-height: 2.3rem; }
+.groups + .finale { padding-top: 12rem; }
+.pager--top { margin: 2.4rem 0 0; }
+.pager:empty { display: none; }
 
 /* --- Карточка товара в сетке -------------------------------------------- */
 .pgrid {
@@ -1499,6 +1503,7 @@ body {
 /* --- Адаптив: магазин и внутренние страницы ------------------------------ */
 @media (max-width: 1250px) {
   .pgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .subcats.subcats--groups { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .steps, .ways__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .step:not(:last-child)::after { display: none; }
   .finale__card { grid-template-columns: minmax(0, 1fr); }
@@ -1509,7 +1514,8 @@ body {
   .order, .help, .similar { padding-bottom: 9rem; }
   .finale, .reviews + .finale { padding: 9rem 0; }
   .features + .finale, .faq + .finale { padding-top: 0; }
-  .assortment--catalog, .assortment--catalog + .finale { padding-top: 9rem; }
+  .groups + .finale { padding-top: 9rem; }
+  .subcats.subcats--groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .steps-sec { padding: 6rem 0 9rem; }
   .about--page { padding: 6rem 0 8rem; }
 
@@ -1535,13 +1541,15 @@ body {
   .order, .help, .similar { padding-bottom: 7rem; }
   .finale, .reviews + .finale { padding: 7rem 0; }
   .features + .finale, .faq + .finale { padding-top: 0; }
-  .assortment--catalog, .assortment--catalog + .finale { padding-top: 7rem; }
+  .groups + .finale { padding-top: 7rem; }
+  .subcats.subcats--groups { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; }
+  .quick { gap: .8rem 2rem; padding: 1.4rem 2rem; }
+  .quick__link { font-size: 1.5rem; }
+  .pager--top { display: none; }
   .page-head { padding-top: 3.2rem; }
   .page-title { font-size: 3.4rem; line-height: 4rem; }
   .crumbs__list { font-size: 1.3rem; }
 
-  .picks__tabs { flex-wrap: nowrap; overflow-x: auto; margin-inline: -2rem; padding: 0 2rem .4rem; scrollbar-width: none; }
-  .picks__tab { flex: none; min-height: 4.4rem; padding: 0 2rem; font-size: 1.5rem; }
 
   .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; }
   .pcard { padding: 1rem 1rem 1.6rem; border-radius: 1.8rem; }
