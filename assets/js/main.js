@@ -21,7 +21,7 @@
     '.section-head', '.feature', '.discounts__bar', '.help__card', '.finale__card',
     '.step', '.way', '.storefront__frame', '.page-title',
     '.cats__item', '.assortment__more', '.order__body', '.order__media', '.about__grid > *', '.review',
-    '.faq__cta', '.faq__item', '.contacts__info', '.contacts__media'
+    '.faq__item', '.cblock', '.cpage__media'
   ].join(', ')));
   if (!items.length) return;
 

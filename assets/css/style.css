@@ -11,7 +11,6 @@
   --pink: #bf5165;
   --pink-hero: #f6d3da;
   --pink-soft: #f5dadf;
-  --pink-contacts: #f9d4db;
   --pink-pill: #fae9ec;
   --on-brown: #f4d5da;
   --muted: #8c6e67;
@@ -272,7 +271,7 @@ body {
   top: 3.55rem;
   transform: translateX(-50%);
 }
-.nav__list { display: flex; gap: 5.6rem; }
+.nav__list { display: flex; gap: 4.8rem; }
 .nav-toggle { display: none; }
 .nav__link {
   font-size: 1.6rem;
@@ -298,7 +297,7 @@ body {
 /* --- Первый экран ------------------------------------------------------- */
 .hero {
   position: relative;
-  height: 76rem;
+  height: 86rem;
   background-color: var(--pink-hero);
   background-image: url("../img/hero.jpg");
   background-image: image-set(url("../img/hero.webp") type("image/webp"), url("../img/hero.jpg") type("image/jpeg"));
@@ -307,7 +306,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.hero__title { margin: 0; padding-top: 18.5rem; }
+.hero__title { margin: 0; padding-top: 22rem; }
 .hero__script {
   display: block;
   width: 51rem;
@@ -330,7 +329,7 @@ body {
   font-size: 2rem;
   line-height: 2.9rem;
 }
-.hero__actions { display: flex; gap: 1.9rem; margin-top: 6.4rem; }
+.hero__actions { display: flex; gap: 1.9rem; margin-top: 7.6rem; }
 
 /* --- Преимущества ------------------------------------------------------- */
 .features { padding: 14rem 0; }
@@ -624,84 +623,23 @@ body {
   background: none;
   border: 0;
   text-align: left;
-  font-size: 1.4rem;
-  line-height: 2.1rem;
+  font-size: 2rem;
+  line-height: 2.8rem;
   font-weight: 500;
   cursor: pointer;
   list-style: none;
 }
 .faq__q::-webkit-details-marker { display: none; }
-.faq__q svg { width: 1.6rem; height: 1.2rem; margin-top: .2rem; flex: none; transition: transform .3s ease; }
+.faq__q svg { width: 2rem; height: 1.5rem; margin-top: .2rem; flex: none; transition: transform .3s ease; }
 .faq__item[open] .faq__q svg { transform: rotate(180deg); }
-.faq__a { padding: 0 8rem 2.4rem 0; font-size: 1.4rem; line-height: 2.1rem; }
-
-/* --- Контакты ----------------------------------------------------------- */
-.contacts { background: var(--pink-contacts); padding: 9rem 0; }
-.contacts__grid { --media-w: 66rem; display: grid; grid-template-columns: 1fr var(--media-w); gap: 4rem; }
-.contacts__info { display: flex; flex-direction: column; }
-.contacts__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 5.6rem;
-  line-height: 6.2rem;
-  text-transform: uppercase;
-  margin-left: -.25rem;
-}
-.contacts__title--second { margin-top: 4.8rem; }
-.contacts__cols { display: grid; grid-template-columns: 51.8rem 1fr; margin-top: 2.1rem; }
-.contacts__cols > :nth-child(2) { margin-top: 0; }
-.contacts__block { font-size: 1.6rem; line-height: 2.5rem; font-style: normal; }
-.contacts__block a { text-decoration: none; }
-
-.contacts__lines { display: grid; grid-template-columns: 50.2rem 1fr; margin-top: 2.2rem; }
-.contacts__lines > :nth-child(2) { margin-top: 0; }
-.contact-line { display: flex; align-items: center; gap: 2.3rem; }
-.contact-line + .contact-line { margin-top: 3.8rem; }
-.contact-line__icon { flex: none; color: var(--brown); margin-left: -.5rem; }
-.contact-line__icon--tg { width: 3.3rem; height: 2.8rem; }
-.contact-line__icon--mail { width: 3.1rem; height: 3.1rem; }
-.contact-line__icon--phone { width: 3.1rem; height: 3.5rem; }
-.contact-line__icon svg { width: 100%; height: 100%; }
-.contact-line__body { font-size: 1.6rem; line-height: 2.5rem; }
-.contact-line a { text-decoration: none; }
-.contact-line a:hover { text-decoration: underline; text-underline-offset: .4rem; }
-
-/* центр кнопок совпадает с центром карты: половина рамки (158) минус половина кнопки (32) */
-.contacts__actions {
-  display: flex;
-  gap: 3.4rem;
-  margin-top: auto;
-  /* карта прижата к низу строки, поэтому низ кнопок совпадает с её нижней линией */
-  margin-bottom: 0;
-}
-.contacts__actions .btn--ghost { padding-inline: 3.8rem; }
-
-/* карта прижата к низу строки — тогда кнопки слева совпадают с её центром */
-.contacts__media { display: grid; gap: 7.3rem; align-content: space-between; padding-top: 2rem; margin-right: .25rem; }
-.frame {
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  aspect-ratio: 562 / 271;
-  background: #a0a0a0;
-}
-.frame img, .frame iframe { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
-/* декоративная строчка по краю, как в макете */
-.frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 563 271' preserveAspectRatio='none'><rect x='1' y='1' width='561' height='269' rx='29' fill='none' stroke='%23000' stroke-width='2' stroke-dasharray='14.5 15'/></svg>") no-repeat center / 100% 100%;
-}
+.faq__a { padding: 0 8rem 2.8rem 0; font-size: 1.7rem; line-height: 2.7rem; }
 
 /* --- Подвал ------------------------------------------------------------- */
 .site-footer { background: var(--brown); color: var(--on-brown); padding: 6.4rem 0 1.6rem; }
 .site-footer__top {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1.2fr;
-  gap: 4rem;
+  grid-template-columns: 1.1fr .6fr 1.3fr 1.1fr;
+  gap: 4rem 5.6rem;
   padding-bottom: 4.8rem;
   border-bottom: 1px solid rgba(244, 213, 218, .2);
 }
@@ -825,7 +763,7 @@ body {
 }
 .finale__title em { font-style: italic; }
 .finale__text { margin-top: 2.4rem; max-width: 72rem; font-size: 1.8rem; line-height: 2.7rem; opacity: .85; }
-.finale__actions { display: grid; gap: 1.4rem; min-width: 30rem; }
+.finale__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; min-width: 46rem; }
 
 /* --- Каталог: подборки --------------------------------------------------- */
 .picks { padding-top: 4rem; }
@@ -1153,7 +1091,6 @@ body {
 /* --- О магазине ---------------------------------------------------------- */
 .about--page { padding: 8rem 0 10rem; }
 .storefront__frame { aspect-ratio: 1099 / 529; }
-.page-head + .contacts { margin-top: 4.8rem; }
 
 /* --- Как заказать -------------------------------------------------------- */
 .steps-sec { padding: 8rem 0 12rem; }
@@ -1198,7 +1135,7 @@ body {
 .ways { padding-bottom: 6rem; }
 .ways__grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2.4rem;
   margin: 4.8rem 0 0;
   padding: 0;
@@ -1212,6 +1149,115 @@ body {
 .ways__address { margin-top: 4rem; max-width: 110rem; font-size: 1.6rem; line-height: 2.5rem; }
 .ways + .discounts { padding-top: 0; }
 .discounts + .faq .section-head { padding-top: 8rem; }
+
+
+/* --- Иконки и кнопки мессенджеров --------------------------------------- */
+.ico { flex: none; width: 2.2rem; height: 2.2rem; }
+.btn .ico { width: 2.2rem; height: 2.2rem; }
+.msg {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 5.2rem;
+  padding: 0 2.2rem;
+  border: 1.5px solid rgba(68, 44, 26, .22);
+  border-radius: 2.6rem;
+  background: var(--white);
+  color: var(--brown);
+  font-size: 1.7rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color .2s ease, transform .3s cubic-bezier(.22, .61, .36, 1), box-shadow .3s ease;
+}
+.msg:hover, .msg:focus-visible { border-color: currentColor; transform: translateY(-.3rem); box-shadow: 0 .8rem 2rem rgba(68, 44, 26, .1); }
+.msg .ico { width: 2.4rem; height: 2.4rem; }
+/* фирменные цвета мессенджеров — узнаются с первого взгляда */
+.msg--wa .ico, .msg-ico.msg--wa:hover { color: #1faa53; }
+.msg--tg .ico, .msg-ico.msg--tg:hover { color: #2296d3; }
+.msg--max .ico, .msg-ico.msg--max:hover { color: #6a43e8; }
+.msg--lg { min-height: 6.4rem; padding: 0 3rem; border-radius: 3.2rem; font-size: 1.9rem; }
+.msg--lg .ico { width: 2.8rem; height: 2.8rem; }
+.order__or { font-size: 1.6rem; color: var(--muted); }
+.order__actions { flex-direction: column; align-items: flex-start; }
+.order__alts { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem; }
+.help__text--more { margin-top: 1.2rem; }
+.help__actions .btn--ghost { gap: 1rem; }
+
+/* --- Фото без пунктирной рамки ------------------------------------------ */
+.photo { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--pink-soft); }
+.photo img, .photo iframe { display: block; width: 100%; height: 100%; object-fit: cover; border: 0; }
+
+/* --- Подвал: контакты с иконками ---------------------------------------- */
+.fline { display: flex; align-items: flex-start; gap: 1.2rem; margin: 0 0 1.6rem; font-size: 1.5rem; line-height: 2.3rem; }
+.fline .ico { margin-top: .1rem; color: var(--on-brown); opacity: .7; }
+.site-footer .fline__big { font-size: 1.8rem; line-height: 2.8rem; font-weight: 600; }
+.site-footer__msg { display: flex; gap: 1.2rem; margin-top: .4rem; }
+.msg-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: var(--on-brown);
+  color: var(--brown);
+  transition: background-color .2s ease, color .2s ease, transform .3s cubic-bezier(.22, .61, .36, 1);
+}
+.msg-ico:hover, .msg-ico:focus-visible { background: var(--white); transform: translateY(-.3rem); }
+.msg-ico .ico { width: 2.6rem; height: 2.6rem; }
+.site-footer :where(a, button):focus-visible { outline-color: var(--on-brown); }
+
+/* --- Страница контактов ------------------------------------------------- */
+.cpage { padding: 4.8rem 0 12rem; }
+.cpage__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 8rem; }
+.cpage__info { display: grid; gap: 5.6rem; }
+.cblock__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 3.4rem;
+  line-height: 4rem;
+  text-transform: uppercase;
+}
+.cblock__text { margin-top: 1.2rem; max-width: 56rem; font-size: 1.7rem; line-height: 2.6rem; }
+.cline { display: flex; align-items: flex-start; gap: 1.6rem; margin-top: 2.2rem; font-size: 1.8rem; line-height: 2.8rem; }
+.cline .ico { width: 2.6rem; height: 2.6rem; margin-top: .1rem; color: var(--pink); }
+.cline b { font-weight: 600; }
+.cline a { color: var(--brown); text-underline-offset: .4rem; }
+.cline--sm { font-size: 1.6rem; line-height: 2.5rem; margin-top: 2.8rem; }
+.cblock__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 2.4rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--pink);
+  text-decoration: none;
+}
+.cblock__link .btn__arrow { width: 1.8rem; height: 1.8rem; }
+.cblock__link:hover { text-decoration: underline; text-underline-offset: .4rem; }
+.cphones { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 2.2rem; }
+.cphone {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1.6rem 3rem 1.6rem 2.4rem;
+  border-radius: 4rem;
+  background: var(--pink-pill);
+  font-size: 2.6rem;
+  line-height: 3.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .2s ease, color .2s ease, transform .3s cubic-bezier(.22, .61, .36, 1);
+}
+.cphone .ico { width: 2.8rem; height: 2.8rem; color: var(--pink); transition: color .2s ease; }
+.cphone:hover, .cphone:focus-visible { background: var(--brown); color: var(--on-brown); transform: translateY(-.3rem); }
+.cphone:hover .ico, .cphone:focus-visible .ico { color: var(--on-brown); }
+.cmsg { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 2.2rem; }
+.cpage__media { display: grid; gap: 2.4rem; }
+.cpage__photo { aspect-ratio: 1099 / 529; }
+.cpage__map { aspect-ratio: 4 / 3; background: #eee; }
 
 /* ==========================================================================
    Адаптив
@@ -1229,9 +1275,9 @@ body {
 
   /* проценты по двум осям искажали снимок — переводим на cover */
   .hero { height: auto; padding-bottom: 8rem; background-size: cover; background-position: 72% 50%; }
-  .hero__title { padding-top: 15rem; }
+  .hero__title { padding-top: 18rem; }
   .hero__script { margin-left: 0; }
-  .hero__actions { margin-top: 5rem; }
+  .hero__actions { margin-top: 6rem; }
 
   .features__grid { grid-template-columns: repeat(3, 1fr); column-gap: 4rem; row-gap: 6rem; }
   .feature__text { max-width: none; }
@@ -1246,12 +1292,6 @@ body {
 
   .faq__list { max-width: 100%; }
 
-  .contacts__grid { --media-w: 48rem; gap: 5rem; }
-  .contacts__cols { grid-template-columns: 1fr 1fr; gap: 3rem; }
-  .contacts__cols > :nth-child(2) { margin-top: 0; }
-  .contacts__lines { grid-template-columns: 1fr 1fr; gap: 3rem; }
-  .contacts__lines > :nth-child(2) { margin-top: 0; }
-  .contacts__media { padding-top: 0; gap: 4rem; }
 
   .br-lg { display: none; }
 }
@@ -1314,8 +1354,6 @@ body {
   .nav-toggle { order: 3; margin-left: 2.4rem; }
 
   /* места меньше — поджимаем кнопки, чтобы подпись осталась в одну строку */
-  .contacts__actions { gap: 2rem; }
-  .contacts__actions .btn--ghost { padding-inline: 2.4rem; }
 }
 
 @media (max-width: 1000px) {
@@ -1326,7 +1364,7 @@ body {
   /* карточки категорий узкие — подпись не должна обрезаться */
   .site-header__phones { margin-left: auto; }
 
-  .hero { padding: 6rem 0 20rem; background-size: cover; background-position: 68% 100%; }
+  .hero { padding: 7rem 0 24rem; background-size: cover; background-position: 68% 100%; }
   .hero__title { padding-top: 0; }
   .hero__script { width: 40rem; height: 11.5rem; }
   .hero__caps { font-size: 6rem; margin-left: 0; }
@@ -1339,7 +1377,7 @@ body {
   .about { padding: 0 0 9rem; }
   .faq { padding: 4rem 0 9rem; }
   .faq .section-head { padding-top: 9rem; }
-  .reviews, .contacts { padding: 6rem 0; }
+  .reviews { padding: 6rem 0; }
   .order__grid { grid-template-columns: minmax(0, 1fr); gap: 5rem; }
   .order__chat { width: 46%; }
   .discounts { padding-top: 4rem; }
@@ -1358,12 +1396,7 @@ body {
   .reviews__list { grid-template-columns: 1fr; }
   .faq__list { margin-top: 5rem; }
 
-  .contacts__grid { grid-template-columns: 1fr; }
   /* колонки сложились — центрировать кнопки не по чему */
-  .contacts__actions { margin-top: 3.7rem; margin-bottom: 0; }
-  .contacts__title { font-size: 5.6rem; margin-left: 0; }
-  .contacts__title--second { margin-top: 6rem; }
-  .contacts__media { max-width: 60rem; }
 }
 
 /* --- телефоны ------------------------------------------------------------ */
@@ -1386,7 +1419,7 @@ body {
   .nav__link { font-size: 1.5rem; }
   .hero__lead { font-size: 1.8rem; line-height: 2.6rem; }
 
-  .hero { padding-bottom: 14rem; background-position: 64% 100%; }
+  .hero { padding-bottom: 17rem; background-position: 64% 100%; }
   .hero__script { width: 26rem; height: 7.5rem; }
   .hero__caps { font-size: 3.4rem; }
   /* кнопки одинаковой ширины и компактнее */
@@ -1402,7 +1435,7 @@ body {
   .about { padding: 0 0 7rem; }
   .faq { padding: 3rem 0 7rem; }
   .faq .section-head { padding-top: 7rem; }
-  .reviews, .contacts { padding: 5rem 0; }
+  .reviews { padding: 5rem 0; }
   .order__text { font-size: 1.7rem; line-height: 2.5rem; margin-top: 2.4rem; }
   .order__actions { margin-top: 3rem; }
   .order__media { aspect-ratio: 4 / 3; border-radius: 2rem; }
@@ -1436,13 +1469,11 @@ body {
   .about__grid { grid-template-columns: 1fr; row-gap: 3rem; }
   .review { padding: 3rem 2.4rem; }
 
-  .faq__q { height: auto; padding: 2.4rem 0; align-items: flex-start; }
+  .faq__q { height: auto; padding: 2rem 0; align-items: flex-start; font-size: 1.7rem; line-height: 2.4rem; }
+  .faq__a { font-size: 1.5rem; line-height: 2.4rem; }
   .faq__q svg { width: 2.4rem; height: 1.8rem; }
   .faq__a { padding-right: 0; }
 
-  .contacts__cols, .contacts__lines { grid-template-columns: 1fr; gap: 2.4rem; }
-  .contacts__title { font-size: 3.6rem; }
-  .contacts__actions { flex-direction: column; align-items: stretch; gap: 1.6rem; }
   .btn { padding: 0 2.4rem; }
   .site-footer__inner { flex-direction: column; align-items: flex-start; gap: .6rem; }
   .site-footer { padding: 2rem 0; }
@@ -1471,7 +1502,7 @@ body {
   .steps, .ways__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .step:not(:last-child)::after { display: none; }
   .finale__card { grid-template-columns: minmax(0, 1fr); }
-  .finale__actions { grid-template-columns: repeat(3, auto); justify-content: start; min-width: 0; }
+  .finale__actions { display: flex; flex-wrap: wrap; min-width: 0; }
 }
 
 @media (max-width: 1000px) {
@@ -1550,7 +1581,8 @@ body {
   .finale__card { padding: 4rem 2.4rem; }
   .finale__title { font-size: 3.4rem; line-height: 4rem; }
   .finale__text { font-size: 1.6rem; line-height: 2.4rem; }
-  .finale__actions { grid-template-columns: minmax(0, 1fr); }
+  .finale__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .finale__actions .btn--outline-light { grid-column: 1 / -1; }
 
   .way-mini__icon { width: 4.4rem; height: 4.4rem; }
   .way-mini__icon svg { width: 2.2rem; height: 2.2rem; }
@@ -1558,4 +1590,30 @@ body {
   .site-footer { padding-top: 4.8rem; }
   .site-footer__top { grid-template-columns: minmax(0, 1fr); gap: 2.8rem; padding-bottom: 3.2rem; }
   .site-footer__inner { flex-direction: column; align-items: flex-start; }
+}
+
+/* --- Адаптив: контакты, мессенджеры, подвал ------------------------------ */
+@media (max-width: 1250px) {
+  .cpage__grid { gap: 5rem; }
+  .cphone { font-size: 2.2rem; }
+}
+@media (max-width: 1000px) {
+  .cpage { padding: 3.2rem 0 9rem; }
+  .cpage__grid { grid-template-columns: minmax(0, 1fr); }
+  .site-footer__top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .cpage { padding-bottom: 7rem; }
+  .cpage__info { gap: 4rem; }
+  .cblock__title { font-size: 2.6rem; line-height: 3.2rem; }
+  .cline { font-size: 1.6rem; line-height: 2.5rem; }
+  .cline span br:nth-of-type(2) { display: none; }
+  .cphones, .cmsg { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .cphone { justify-content: center; font-size: 2.2rem; }
+  .msg--lg { justify-content: center; }
+  .order__actions { gap: 1.2rem; }
+  .order__actions { align-items: stretch; }
+  .order__alts .msg { flex: 1; justify-content: center; }
+  .order__or { flex: 1 1 100%; }
+  .site-footer__top { grid-template-columns: minmax(0, 1fr); }
 }
