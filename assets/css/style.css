@@ -1241,6 +1241,10 @@ body {
 .chip-btn { font-size: 1.7rem; gap: 1.2rem; }
 .chip-btn .app--xs { width: 2.8rem; height: 2.8rem; border-radius: .8rem; }
 
+/* фото основных групп — на розовом фоне сайта, показываются целиком, без обрезки */
+[class*="cat--grp-"] picture, .subcat--group .subcat__media { background: var(--pink-hero); }
+[class*="cat--grp-"] .cat__img, .subcat--group .subcat__img { object-fit: contain; }
+
 /* заглушка вместо снимка, пока у группы нет своего фото */
 .ph { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #fae3e8, #f3cad3); color: var(--pink); }
 .ph svg { width: 28%; height: 28%; opacity: .5; }
