@@ -14,7 +14,7 @@
   var LISTS = { hit: 'Хиты продаж', sale: 'Акции', 'new': 'Новинки' };
   /* порядок фильтров — как в привычных каталогах фурнитуры */
   var ATTR_ORDER = ['Материал', 'Страна производитель', 'Вес', 'Цвет', 'Длина', 'Толщина', 'Ширина',
-    'Диаметр', 'Высота', 'Размер', 'Узор', 'Номер цвета'];
+    'Диаметр', 'Высота', 'Размер', 'Тип', 'Узор', 'Номер цвета'];
 
   var cats = {};
   D.categories.forEach(function (c) { cats[c.slug] = c; });
@@ -33,11 +33,14 @@
     return n.toLocaleString('ru-RU', { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: 2 }) + ' ₽';
   }
   function unitPrice(p) { return money(Math.round(p.opt / p.pack * 100) / 100); }
-  function subOf(p) {
-    var c = cats[p.cat];
-    for (var i = 0; i < c.subs.length; i++) if (c.subs[i].slug === p.sub) return c.subs[i];
+  function find(list, slug) {
+    for (var i = 0; i < (list || []).length; i++) if (list[i].slug === slug) return list[i];
     return null;
   }
+  function subOf(p) { return find(cats[p.cat].subs, p.sub); }
+  function leafOf(p) { var s = subOf(p); return s ? find(s.leaves, p.leaf) : null; }
+  /* снимок товара: у подгруппы свой, иначе снимок группы */
+  function imgOf(p) { var s = subOf(p); return (s && s.img) || cats[p.cat].img; }
   function plural(n, one, few, many) {
     var m10 = n % 10, m100 = n % 100;
     if (m10 === 1 && m100 !== 11) return one;
@@ -49,6 +52,7 @@
 
   /* --- разметка ---------------------------------------------------------- */
   function picture(img, alt, cls, pos, eager) {
+    if (!img) return '<span class="ph ' + cls + '" aria-hidden="true"><svg viewBox="0 0 440 440"><use href="#i-bag"></use></svg></span>';
     return '<picture><source type="image/webp" srcset="assets/img/' + img + '.webp">' +
       '<img class="' + cls + '" src="assets/img/' + img + '.jpg" alt="' + esc(alt) + '"' +
       (pos != null ? ' style="object-position:' + pos + '% 50%"' : '') +
@@ -58,7 +62,7 @@
   function card(p) {
     return '<li class="pcard">' +
       '<a class="pcard__link" href="product.html?id=' + p.id + '">' +
-        '<span class="pcard__media">' + picture(cats[p.cat].img, p.name, 'pcard__img', p.pos) + '</span>' +
+        '<span class="pcard__media">' + picture(imgOf(p), p.name, 'pcard__img', p.pos) + '</span>' +
         '<span class="pcard__name">' + esc(p.name) + '</span>' +
       '</a>' +
       '<p class="pcard__meta">Цена за единицу: <b>' + unitPrice(p) + '</b></p>' +
@@ -94,36 +98,46 @@
     var root = $('shop');
     var list = params.get('list');
     var cat = cats[params.get('c')];
-    var sub = null;
     if (!LISTS[list]) list = null;
     if (!list && !cat) { notFound(root, 'Категория не найдена'); return; }
-    if (cat) cat.subs.forEach(function (s) { if (s.slug === params.get('s')) sub = s; });
+    var sub = cat ? find(cat.subs, params.get('s')) : null;
+    var leaf = sub ? find(sub.leaves, params.get('t')) : null;
 
     var base = D.products.filter(function (p) {
       if (list) return p.flags[list];
-      return p.cat === cat.slug && (!sub || p.sub === sub.slug);
+      return p.cat === cat.slug && (!sub || p.sub === sub.slug) && (!leaf || p.leaf === leaf.slug);
     });
 
-    var title = list ? LISTS[list] : sub ? sub.name : cat.name;
-    document.title = title + ' — каталог «Рукодельницы»';
+    var title = list ? LISTS[list] : leaf ? sub.name + ' — ' + leaf.name.toLowerCase() : sub ? sub.name : cat.name;
+    document.title = (leaf ? cat.name + ', ' + title.toLowerCase() : title) + ' — каталог «Рукодельницы»';
+    var catUrl = cat ? 'category.html?c=' + cat.slug : '';
     var trail = [['Главная', './'], ['Каталог товаров', 'catalog.html']];
-    if (cat) trail.push([cat.name, 'category.html?c=' + cat.slug]);
-    if (sub) trail.push([sub.name, '']);
+    if (cat) trail.push([cat.name, catUrl]);
+    if (sub) trail.push([sub.name, catUrl + '&s=' + sub.slug]);
+    if (leaf) trail.push([leaf.name, '']);
     if (list) trail.push([title, '']);
     $('crumbs').innerHTML = crumbs(trail);
     $('shop-title').textContent = title;
 
     /* плитки подкатегорий (или соседних подборок) */
     var tiles = $('subcats');
-    /* в подгруппе плитки не нужны — сразу её товары */
-    if (sub) {
+    /* плитки следующего уровня: у группы — подгруппы, у подгруппы — её подподгруппы */
+    function tile(href, name, img, i) {
+      return '<li><a class="subcat" href="' + href + '">' +
+        '<span class="subcat__media">' + picture(img, '', 'subcat__img', (i * 37) % 100, true) + '</span>' +
+        '<span class="subcat__name">' + esc(name) + '</span></a></li>';
+    }
+    var next = sub ? sub.leaves : cat ? cat.subs : null;
+    if (next && !next.length) {
       tiles.remove();
-    } else if (cat) {
-      tiles.innerHTML = cat.subs.map(function (s, i) {
-        return '<li><a class="subcat" href="category.html?c=' + cat.slug + '&s=' + s.slug + '">' +
-          '<span class="subcat__media">' + picture(cat.img, '', 'subcat__img', (i * 37) % 100, true) + '</span>' +
-          '<span class="subcat__name">' + esc(s.name) + '</span></a></li>';
+    } else if (next) {
+      /* подподгруппы («Тип 3», «25 мм») — кнопками: фото у них одинаковые */
+      tiles.innerHTML = next.map(function (x, i) {
+        var on = leaf && leaf.slug === x.slug;
+        return sub ? '<li><a class="chip-link' + (on ? ' is-active' : '') + '" href="' + catUrl + '&s=' + sub.slug + (on ? '' : '&t=' + x.slug) + '"' + (on ? ' aria-current="page"' : '') + '>' + esc(x.name) + '</a></li>'
+                   : tile(catUrl + '&s=' + x.slug, x.name, x.img, i);
       }).join('');
+      if (sub) tiles.classList.add('subcats--chips');
     } else {
       tiles.classList.add('subcats--chips');
       tiles.innerHTML = Object.keys(LISTS).map(function (k) {
@@ -332,15 +346,15 @@
     var root = $('product');
     var p = byId[params.get('id')];
     if (!p) { notFound(root, 'Товар не найден'); return; }
-    var cat = cats[p.cat], sub = subOf(p);
+    var cat = cats[p.cat], sub = subOf(p), leaf = leafOf(p);
 
     document.title = p.name + ' — «Рукодельница»';
     $('crumbs').innerHTML = crumbs([
       ['Главная', './'], ['Каталог товаров', 'catalog.html'],
-      [cat.name, 'category.html?c=' + cat.slug],
-      [sub.name, 'category.html?c=' + cat.slug + '&s=' + sub.slug],
-      [p.name, '']
-    ]);
+      [cat.name, 'category.html?c=' + cat.slug]
+    ].concat(sub ? [[sub.name, 'category.html?c=' + cat.slug + '&s=' + sub.slug]] : [])
+     .concat(leaf ? [[leaf.name, 'category.html?c=' + cat.slug + '&s=' + sub.slug + '&t=' + leaf.slug]] : [])
+     .concat([[p.name, '']]));
 
     var specs = [['В упаковке', p.pack + ' ' + p.unit]]
       .concat(Object.keys(p.attrs).map(function (k) { return [k, p.attrs[k]]; }));
@@ -350,7 +364,7 @@
     root.innerHTML =
       '<h1 class="product__title">' + esc(p.name) + '</h1>' +
       '<div class="product__grid">' +
-        '<div class="product__media">' + picture(cat.img, p.name, 'product__img', p.pos, true) + '</div>' +
+        '<div class="product__media">' + picture(imgOf(p), p.name, 'product__img', p.pos, true) + '</div>' +
         '<div class="product__info">' +
           '<p class="product__label">Оптовая цена</p>' +
           '<p class="product__price">' + money(p.opt) +
@@ -376,12 +390,12 @@
           return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td></tr>';
         }).join('') + '</tbody></table></section>';
 
-    var similar = D.products.filter(function (q) { return q.sub === p.sub && q.cat === p.cat && q.id !== p.id; })
+    var similar = D.products.filter(function (q) { return q.cat === p.cat && q.sub === p.sub && q.leaf === p.leaf && q.id !== p.id; })
       .sort(byPop).slice(0, 4);
     if (similar.length) {
       $('similar').hidden = false;
       $('similar-grid').innerHTML = similar.map(card).join('');
-      $('similar-more').href = 'category.html?c=' + cat.slug + '&s=' + sub.slug;
+      $('similar-more').href = 'category.html?c=' + cat.slug + (sub ? '&s=' + sub.slug : '') + (leaf ? '&t=' + leaf.slug : '');
     }
   }
 
