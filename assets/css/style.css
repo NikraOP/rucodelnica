@@ -326,6 +326,7 @@ body {
 
 .hero__lead {
   margin-top: 2.35rem;
+  max-width: 76rem;
   font-size: 2rem;
   line-height: 2.9rem;
 }
