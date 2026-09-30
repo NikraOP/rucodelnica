@@ -53,8 +53,9 @@
   /* --- разметка ---------------------------------------------------------- */
   function picture(img, alt, cls, pos, eager) {
     if (!img) return '<span class="ph ' + cls + '" aria-hidden="true"><svg viewBox="0 0 440 440"><use href="#i-bag"></use></svg></span>';
-    return '<picture><source type="image/webp" srcset="assets/img/' + img + '.webp">' +
-      '<img class="' + cls + '" src="assets/img/' + img + '.jpg" alt="' + esc(alt) + '"' +
+    var v = D.imgv && D.imgv[img] ? '?v=' + D.imgv[img] : '';
+    return '<picture><source type="image/webp" srcset="assets/img/' + img + '.webp' + v + '">' +
+      '<img class="' + cls + '" src="assets/img/' + img + '.jpg' + v + '" alt="' + esc(alt) + '"' +
       (pos != null ? ' style="object-position:' + pos + '% 50%"' : '') +
       (eager ? '' : ' loading="lazy"') + ' decoding="async"></picture>';
   }
