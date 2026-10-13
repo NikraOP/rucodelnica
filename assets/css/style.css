@@ -828,7 +828,6 @@ body {
 .pcard__link:focus-visible { outline: none; }
 .pcard__link:focus-visible::after { outline: 3px solid var(--brown); outline-offset: 3px; }
 .pcard__media { position: relative; overflow: hidden; aspect-ratio: 1; border-radius: 1.6rem; background: var(--pink-soft); }
-.pcard__media:has(.image--slider) { border: 1.5px solid color-mix(in srgb, var(--pink) 35%, white); }
 .pcard__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.33, 1, .68, 1); }
 .pcard:hover .pcard__img { transform: scale(1.05); }
 .image--rotated { transform: rotate(var(--img-rotation)); }
