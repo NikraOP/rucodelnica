@@ -314,7 +314,7 @@ body {
   width: 51rem;
   height: 14.6rem;
   margin-left: -6.8rem;
-  background: url("../img/shveynaya.svg") no-repeat left top / 100% 100%;
+  background: url("../img/shveynaya.svg?v=accent-20261014") no-repeat left top / 100% 100%;
 }
 .hero__caps {
   display: block;
@@ -343,7 +343,7 @@ body {
   margin-top: 4.8rem;
 }
 .feature__head { display: flex; align-items: flex-start; gap: 1rem; }
-.feature__icon { color: var(--pink); flex: none; }
+.feature__icon { color: var(--pink-accent); flex: none; }
 .feature__icon svg { width: 100%; height: 100%; }
 .feature__icon--bag    { width: 4.4rem; height: 4.4rem; margin-left: -.3rem; }
 .feature__icon--heart  { width: 4.4rem; height: 3.6rem; margin-left: -.1rem; }
@@ -382,7 +382,7 @@ body {
   line-height: 3rem;
   text-transform: uppercase;
 }
-.discounts__icon { flex: none; width: 3.6rem; height: 3.6rem; color: var(--pink); }
+.discounts__icon { flex: none; width: 3.6rem; height: 3.6rem; color: var(--pink-accent); }
 .discounts__list { display: flex; align-items: center; gap: 4rem; }
 .discount { display: flex; align-items: center; gap: 1.4rem; }
 .discount + .discount { padding-left: 4rem; border-left: .2rem dashed rgba(68, 44, 26, .35); }
@@ -611,7 +611,7 @@ body {
   border-radius: var(--radius);
   background: var(--white);
 }
-.review__stars { display: flex; gap: 2.04rem; margin: .48rem 0 0 .46rem; line-height: 1; color: var(--pink); }
+.review__stars { display: flex; gap: 2.04rem; margin: .48rem 0 0 .46rem; line-height: 1; color: var(--pink-accent); }
 .review__stars svg { width: 2.3rem; height: 2.19rem; }
 .review__text { margin-top: 2.4rem; font-size: 1.8rem; line-height: 2.8rem; }
 .review__text br { display: none; }
@@ -725,12 +725,16 @@ body {
   height: 5.2rem;
   border-radius: 50%;
   background: var(--pink-pill);
-  color: var(--pink);
+  color: var(--pink-accent);
 }
 .way-mini__icon svg { width: 2.6rem; height: 2.6rem; }
 .way-mini__title { font-size: 2rem; line-height: 2.6rem; font-weight: 600; }
 .way-mini__text { margin-top: .6rem; max-width: 56rem; font-size: 1.6rem; line-height: 2.5rem; }
-.way-mini__text a { color: var(--pink); font-weight: 600; text-underline-offset: .4rem; }
+.way-mini__text a { color: var(--pink-accent); font-weight: 600; text-underline-offset: .4rem; }
+.assortment .eyebrow,
+.order .eyebrow,
+.help .eyebrow,
+.reviews .eyebrow { color: var(--pink-accent); }
 .assortment__more .btn { gap: 2rem; }
 
 /* --- Главная: не нашли нужное ------------------------------------------- */
