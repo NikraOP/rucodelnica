@@ -39,8 +39,8 @@
   }
   function subOf(p) { return find(cats[p.cat].subs, p.sub); }
   function leafOf(p) { var s = subOf(p); return s ? find(s.leaves, p.leaf) : null; }
-  /* снимок товара: у подгруппы свой, иначе снимок группы */
-  function imgOf(p) { var s = subOf(p); return (s && s.img) || cats[p.cat].img; }
+  /* У товара может быть собственный снимок; иначе — снимок подгруппы или группы. */
+  function imgOf(p) { var s = subOf(p); return p.img || (s && s.img) || cats[p.cat].img; }
   function plural(n, one, few, many) {
     var m10 = n % 10, m100 = n % 100;
     if (m10 === 1 && m100 !== 11) return one;
@@ -51,19 +51,21 @@
   var collator = new Intl.Collator('ru', { numeric: true, sensitivity: 'base' });
 
   /* --- разметка ---------------------------------------------------------- */
-  function picture(img, alt, cls, pos, eager) {
+  function picture(img, alt, cls, pos, eager, rotate) {
     if (!img) return '<span class="ph ' + cls + '" aria-hidden="true"><svg viewBox="0 0 440 440"><use href="#i-bag"></use></svg></span>';
+    var hasExt = /\.webp$/i.test(img);
     var v = D.imgv && D.imgv[img] ? '?v=' + D.imgv[img] : '';
-    return '<picture><source type="image/webp" srcset="assets/img/' + img + '.webp' + v + '">' +
-      '<img class="' + cls + '" src="assets/img/' + img + '.jpg' + v + '" alt="' + esc(alt) + '"' +
-      (pos != null ? ' style="object-position:' + pos + '% 50%"' : '') +
+    var style = (pos != null ? 'object-position:' + pos + '% 50%;' : '') + (rotate ? '--img-rotation:' + rotate + 'deg;' : '');
+    return '<picture><source type="image/webp" srcset="assets/img/' + (hasExt ? img : img + '.webp') + v + '">' +
+      '<img class="' + cls + (rotate ? ' image--rotated' : '') + '" src="assets/img/' + (hasExt ? img : img + '.jpg') + v + '" alt="' + esc(alt) + '"' +
+      (style ? ' style="' + style + '"' : '') +
       (eager ? '' : ' loading="lazy"') + ' decoding="async"></picture>';
   }
 
   function card(p) {
     return '<li class="pcard">' +
       '<a class="pcard__link" href="product.html?id=' + p.id + '">' +
-        '<span class="pcard__media">' + picture(imgOf(p), p.name, 'pcard__img', p.pos) + '</span>' +
+        '<span class="pcard__media">' + picture(imgOf(p), p.name, 'pcard__img', p.pos, false, p.rotate) + '</span>' +
         '<span class="pcard__name">' + esc(p.name) + '</span>' +
       '</a>' +
       '<p class="pcard__meta">Цена за единицу: <b>' + unitPrice(p) + '</b></p>' +
@@ -365,7 +367,7 @@
     root.innerHTML =
       '<h1 class="product__title">' + esc(p.name) + '</h1>' +
       '<div class="product__grid">' +
-        '<div class="product__media">' + picture(imgOf(p), p.name, 'product__img', p.pos, true) + '</div>' +
+        '<div class="product__media">' + picture(imgOf(p), p.name, 'product__img', p.pos, true, p.rotate) + '</div>' +
         '<div class="product__info">' +
           '<p class="product__label">Оптовая цена</p>' +
           '<p class="product__price">' + money(p.opt) +
