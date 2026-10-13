@@ -57,6 +57,7 @@
     var slider = /^slider-\d{2}\.webp$/.test(img);
     var v = D.imgv && D.imgv[img] ? '?v=' + D.imgv[img] : '';
     var style = (!slider && pos != null ? 'object-position:' + pos + '% 50%;' : '') + (slider || rotate ? '--img-rotation:' + (rotate || 0) + 'deg;' : '');
+    if (img === 'slider-02.webp') style += '--img-flip:-1;';
     return '<picture><source type="image/webp" srcset="assets/img/' + (hasExt ? img : img + '.webp') + v + '">' +
       '<img class="' + cls + (rotate ? ' image--rotated' : '') + (slider ? ' image--slider' : '') + '" src="assets/img/' + (hasExt ? img : img + '.jpg') + v + '" alt="' + esc(alt) + '"' +
       (style ? ' style="' + style + '"' : '') +
