@@ -832,6 +832,26 @@ body {
 .pcard:hover .pcard__img { transform: scale(1.05); }
 .image--rotated { transform: rotate(var(--img-rotation)); }
 .pcard:hover .pcard__img.image--rotated { transform: rotate(var(--img-rotation)) scale(1.05); }
+.pcard__img.image--slider,
+.product__img.image--slider {
+  box-sizing: border-box;
+  padding: 16px;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+  transform: rotate(var(--img-rotation, 0deg));
+}
+.pcard:hover .pcard__img.image--slider { transform: rotate(var(--img-rotation, 0deg)); }
+.cat.cat--grp-begunki picture,
+.subcat.subcat--begunki .subcat__media { background: #fff; }
+.cat.cat--grp-begunki .cat__img,
+.subcat.subcat--begunki .subcat__img {
+  box-sizing: border-box;
+  padding: 16px;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+}
 .pcard__name {
   display: -webkit-box;
   overflow: hidden;

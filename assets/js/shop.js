@@ -54,10 +54,11 @@
   function picture(img, alt, cls, pos, eager, rotate) {
     if (!img) return '<span class="ph ' + cls + '" aria-hidden="true"><svg viewBox="0 0 440 440"><use href="#i-bag"></use></svg></span>';
     var hasExt = /\.webp$/i.test(img);
+    var slider = /^slider-\d{2}\.webp$/.test(img);
     var v = D.imgv && D.imgv[img] ? '?v=' + D.imgv[img] : '';
-    var style = (pos != null ? 'object-position:' + pos + '% 50%;' : '') + (rotate ? '--img-rotation:' + rotate + 'deg;' : '');
+    var style = (!slider && pos != null ? 'object-position:' + pos + '% 50%;' : '') + (slider || rotate ? '--img-rotation:' + (rotate || 0) + 'deg;' : '');
     return '<picture><source type="image/webp" srcset="assets/img/' + (hasExt ? img : img + '.webp') + v + '">' +
-      '<img class="' + cls + (rotate ? ' image--rotated' : '') + '" src="assets/img/' + (hasExt ? img : img + '.jpg') + v + '" alt="' + esc(alt) + '"' +
+      '<img class="' + cls + (rotate ? ' image--rotated' : '') + (slider ? ' image--slider' : '') + '" src="assets/img/' + (hasExt ? img : img + '.jpg') + v + '" alt="' + esc(alt) + '"' +
       (style ? ' style="' + style + '"' : '') +
       (eager ? '' : ' loading="lazy"') + ' decoding="async"></picture>';
   }
