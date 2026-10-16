@@ -140,7 +140,7 @@
       tiles.innerHTML = next.map(function (x, i) {
         var on = leaf && leaf.slug === x.slug;
         return sub ? '<li><a class="chip-link' + (on ? ' is-active' : '') + '" href="' + catUrl + '&s=' + sub.slug + (on ? '' : '&t=' + x.slug) + '"' + (on ? ' aria-current="page"' : '') + '>' + esc(x.name) + '</a></li>'
-                   : tile(catUrl + '&s=' + x.slug, x.name, x.img, i);
+                   : tile(catUrl + '&s=' + x.slug, x.name, x.tileImg || x.img, i);
       }).join('');
       if (sub) tiles.classList.add('subcats--chips');
     } else {
