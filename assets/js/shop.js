@@ -55,11 +55,12 @@
     if (!img) return '<span class="ph ' + cls + '" aria-hidden="true"><svg viewBox="0 0 440 440"><use href="#i-bag"></use></svg></span>';
     var hasExt = /\.webp$/i.test(img);
     var slider = /^slider-\d{2}\.webp$/.test(img);
+    var lace = /^lace-\d{2}\.webp$/.test(img);
     var v = D.imgv && D.imgv[img] ? '?v=' + D.imgv[img] : '';
     var style = (!slider && pos != null ? 'object-position:' + pos + '% 50%;' : '') + (slider || rotate ? '--img-rotation:' + (rotate || 0) + 'deg;' : '');
     if (img === 'slider-02.webp') style += '--img-flip:-1;';
     return '<picture><source type="image/webp" srcset="assets/img/' + (hasExt ? img : img + '.webp') + v + '">' +
-      '<img class="' + cls + (rotate ? ' image--rotated' : '') + (slider ? ' image--slider' : '') + '" src="assets/img/' + (hasExt ? img : img + '.jpg') + v + '" alt="' + esc(alt) + '"' +
+      '<img class="' + cls + (rotate ? ' image--rotated' : '') + (slider ? ' image--slider' : '') + (lace ? ' image--lace' : '') + '" src="assets/img/' + (hasExt ? img : img + '.jpg') + v + '" alt="' + esc(alt) + '"' +
       (style ? ' style="' + style + '"' : '') +
       (eager ? '' : ' loading="lazy"') + ' decoding="async"></picture>';
   }
@@ -70,10 +71,11 @@
         '<span class="pcard__media">' + picture(imgOf(p), p.name, 'pcard__img', p.pos, false, p.rotate) + '</span>' +
         '<span class="pcard__name">' + esc(p.name) + '</span>' +
       '</a>' +
+      (p.priceOnRequest ? '<p class="pcard__meta">Наличие уточняйте у продавца</p><p class="pcard__price"><b>Цена по запросу</b></p>' :
       '<p class="pcard__meta">Цена за единицу: <b>' + unitPrice(p) + '</b></p>' +
       '<p class="pcard__price"><b>' + money(p.opt) + '</b> <span class="pcard__tag">опт</span>' +
         (p.old ? ' <s>' + money(p.old) + '</s>' : '') + '</p>' +
-      '<p class="pcard__retail">' + money(p.retail, true) + ' <span>розница</span></p>' +
+      '<p class="pcard__retail">' + money(p.retail, true) + ' <span>розница</span></p>') +
     '</li>';
   }
 
@@ -167,6 +169,7 @@
       return [Math.floor(Math.min.apply(null, v)), Math.ceil(Math.max.apply(null, v))];
     }
     function priceGroup(field, label, id) {
+      if (!base.some(function (p) { return !p.priceOnRequest; })) return '';
       var r = range(field);
       return '<details class="filter"><summary class="filter__head">' + label + chevron() + '</summary>' +
         '<div class="filter__body filter__range">' +
@@ -361,7 +364,7 @@
      .concat(leaf ? [[leaf.name, 'category.html?c=' + cat.slug + '&s=' + sub.slug + '&t=' + leaf.slug]] : [])
      .concat([[p.name, '']]));
 
-    var specs = [['В упаковке', p.pack + ' ' + p.unit]]
+    var specs = (p.priceOnRequest ? [] : [['В упаковке', p.pack + ' ' + p.unit]])
       .concat(Object.keys(p.attrs).map(function (k) { return [k, p.attrs[k]]; }));
     var brief = Object.keys(p.attrs).slice(0, 4);
     var msg = 'Здравствуйте! Хочу заказать: ' + p.name + '.';
@@ -371,12 +374,13 @@
       '<div class="product__grid">' +
         '<div class="product__media">' + picture(imgOf(p), p.name, 'product__img', p.pos, true, p.rotate) + '</div>' +
         '<div class="product__info">' +
+          (p.priceOnRequest ? '<p class="product__price">Цена по запросу</p>' :
           '<p class="product__label">Оптовая цена</p>' +
           '<p class="product__price">' + money(p.opt) +
             (p.old ? ' <s>' + money(p.old) + '</s>' : '') +
             '<span class="hint" tabindex="0" aria-label="Об оптовой цене">i<span class="hint__text" role="tooltip">Оптовая цена действует для оптовых покупателей. Условия уточняйте у продавца.</span></span></p>' +
           '<p class="product__retail">' + money(p.retail, true) + ' <span>розница</span></p>' +
-          '<p class="product__unit">Цена за единицу: <b>' + unitPrice(p) + '</b> · в упаковке ' + p.pack + ' ' + p.unit + '</p>' +
+          '<p class="product__unit">Цена за единицу: <b>' + unitPrice(p) + '</b> · в упаковке ' + p.pack + ' ' + p.unit + '</p>') +
           '<details class="order-pick">' +
             '<summary class="btn btn--arrow">Оформить заказ<svg class="btn__arrow" aria-hidden="true"><use href="#i-arrow"></use></svg></summary>' +
             '<div class="order-pick__panel"><span class="order-pick__label">Написать в</span>' +
@@ -387,13 +391,13 @@
           '<dl class="product__brief">' + brief.map(function (k) {
             return '<div><dt>' + esc(k) + '</dt><dd>' + esc(p.attrs[k]) + '</dd></div>';
           }).join('') + '</dl>' +
-          '<a class="product__all" href="#specs">Все характеристики <svg viewBox="0 0 432 324" aria-hidden="true"><use href="#i-chev"></use></svg></a>' +
+          (specs.length ? '<a class="product__all" href="#specs">Все характеристики <svg viewBox="0 0 432 324" aria-hidden="true"><use href="#i-chev"></use></svg></a>' : '') +
         '</div>' +
       '</div>' +
-      '<section class="specs" id="specs"><h2 class="specs__head">Характеристики</h2>' +
+      (specs.length ? '<section class="specs" id="specs"><h2 class="specs__head">Характеристики</h2>' +
         '<table class="specs__table"><tbody>' + specs.map(function (r) {
           return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td></tr>';
-        }).join('') + '</tbody></table></section>';
+        }).join('') + '</tbody></table></section>' : '');
 
     var similar = D.products.filter(function (q) { return q.cat === p.cat && q.sub === p.sub && q.leaf === p.leaf && q.id !== p.id; })
       .sort(byPop).slice(0, 4);
