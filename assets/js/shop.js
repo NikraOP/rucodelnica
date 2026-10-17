@@ -131,8 +131,12 @@
     var tiles = $('subcats');
     /* плитки следующего уровня: у группы — подгруппы, у подгруппы — её подподгруппы */
     function tile(href, name, img, i) {
+      var gallery = Array.isArray(img);
+      var media = gallery ? img.map(function (file) {
+        return picture(file, '', 'subcat__img', 50, true);
+      }).join('') : picture(img, '', 'subcat__img', (i * 37) % 100, true);
       return '<li><a class="subcat" href="' + href + '">' +
-        '<span class="subcat__media">' + picture(img, '', 'subcat__img', (i * 37) % 100, true) + '</span>' +
+        '<span class="subcat__media' + (gallery ? ' subcat__media--gallery' : '') + '">' + media + '</span>' +
         '<span class="subcat__name">' + esc(name) + '</span></a></li>';
     }
     var next = sub ? sub.leaves : cat ? cat.subs : null;
@@ -143,7 +147,7 @@
       tiles.innerHTML = next.map(function (x, i) {
         var on = leaf && leaf.slug === x.slug;
         return sub ? '<li><a class="chip-link' + (on ? ' is-active' : '') + '" href="' + catUrl + '&s=' + sub.slug + (on ? '' : '&t=' + x.slug) + '"' + (on ? ' aria-current="page"' : '') + '>' + esc(x.name) + '</a></li>'
-                   : tile(catUrl + '&s=' + x.slug, x.name, x.tileImg || x.img, i);
+                   : tile(catUrl + '&s=' + x.slug, x.name, x.tileImgs || x.tileImg || x.img, i);
       }).join('');
       if (sub) tiles.classList.add('subcats--chips');
     } else {

@@ -953,6 +953,8 @@ body {
 .subcat:hover { border-color: var(--pink); box-shadow: 0 .8rem 2.4rem rgba(68, 44, 26, .07); }
 .subcat.is-active { border-color: var(--pink); background: var(--pink-pill); }
 .subcat__media { position: relative; overflow: hidden; width: 100%; aspect-ratio: 1; margin-bottom: 1rem; border-radius: 1.8rem; background: var(--pink-soft); }
+.subcat__media--gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 4px; }
+.subcat__media--gallery picture { position: relative; min-width: 0; min-height: 0; overflow: hidden; border-radius: .6rem; }
 .subcat__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.33, 1, .68, 1); }
 .subcat:hover .subcat__img { transform: scale(1.06); }
 .subcat__name { font-size: 1.6rem; line-height: 2.2rem; font-weight: 600; }
