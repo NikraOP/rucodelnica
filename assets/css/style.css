@@ -832,6 +832,7 @@ body {
 .pcard__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.33, 1, .68, 1); }
 .pcard:hover .pcard__img { transform: scale(1.05); }
 .pcard__img.image--lace, .product__img.image--lace { object-fit: contain; }
+.pcard__img.image--lace.image--fill, .product__img.image--lace.image--fill { object-fit: cover; }
 .pcard:hover .pcard__img.image--lace { transform: rotate(var(--img-rotation, 0deg)); }
 .image--rotated { transform: rotate(var(--img-rotation)); }
 .pcard:hover .pcard__img.image--rotated { transform: rotate(var(--img-rotation)) scale(1.05); }
