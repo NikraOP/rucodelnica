@@ -56,7 +56,7 @@
     var hasExt = /\.webp$/i.test(img);
     var slider = /^slider-\d{2}\.webp$/.test(img);
     var lace = /^lace-\d{2}\.webp$/.test(img);
-    if (img === 'lace-32.webp') cls += ' image--fill';
+    if (['lace-26.webp', 'lace-32.webp', 'lace-49.webp'].indexOf(img) !== -1) cls += ' image--fill';
     var v = D.imgv && D.imgv[img] ? '?v=' + D.imgv[img] : '';
     var style = (!slider && pos != null ? 'object-position:' + pos + '% 50%;' : '') + (slider || rotate ? '--img-rotation:' + (rotate || 0) + 'deg;' : '');
     if (img === 'slider-02.webp') style += '--img-flip:-1;';
