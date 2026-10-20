@@ -598,23 +598,31 @@ body {
 
 .reviews__list {
   display: grid;
-  grid-template-columns: repeat(3, 46.7rem);
-  justify-content: space-between;
-  margin-top: 4.8rem;
+  grid-template-columns: minmax(0, 1.25fr) minmax(30rem, .75fr);
+  grid-template-rows: repeat(2, auto);
+  align-items: start;
+  column-gap: 10rem;
+  row-gap: 4.8rem;
+  margin-top: 5.6rem;
 }
+.reviews__list > li { min-width: 0; }
+.reviews__list > li:nth-child(1) { grid-column: 2; grid-row: 1; }
+.reviews__list > li:nth-child(2) { grid-column: 2; grid-row: 2; }
+.reviews__list > li:nth-child(3) { grid-column: 1; grid-row: 1 / span 2; align-self: center; }
 .review {
   display: flex;
   flex-direction: column;
-  min-height: 41.3rem;
-  padding: 4rem;
-  border-radius: var(--radius);
-  background: var(--white);
+  min-height: 0;
+  padding: 0;
 }
-.review__stars { display: flex; gap: 2.04rem; margin: .48rem 0 0 .46rem; line-height: 1; color: var(--pink); }
+.review__stars { display: none; }
 .review__stars svg { width: 2.3rem; height: 2.19rem; }
-.review__text { margin-top: 2.4rem; font-size: max(1.8rem, 16px); line-height: 2.8rem; }
+.review__text { margin-top: 0; font-size: max(1.8rem, 16px); line-height: 2.8rem; }
 .review__text br { display: none; }
-.review__author { margin-top: auto; padding-top: 2.4rem; font-size: max(1.7rem, 16px); line-height: 2.4rem; font-weight: 600; }
+.review__author { margin-top: 0; padding-top: 2.4rem; font-size: max(1.6rem, 16px); line-height: 2.2rem; font-weight: 600; }
+.review--long .review__text { position: relative; max-width: 66rem; padding-top: 5.8rem; font-family: var(--font-display); font-size: max(3rem, 20px); line-height: 3.9rem; }
+.review--long .review__text::before { content: "“"; position: absolute; top: -.8rem; left: 0; color: var(--pink); font-family: Georgia, serif; font-size: 7rem; line-height: 1; }
+.review--long .review__author { padding-top: 2.8rem; }
 
 /* --- Вопросы ------------------------------------------------------------ */
 .faq { background: var(--white); padding: 4.8rem 0 14rem; }
@@ -735,20 +743,20 @@ body {
 /* --- Главная: не нашли нужное ------------------------------------------- */
 .help { padding-bottom: 14rem; }
 .help__card {
-  position: relative;
-  overflow: hidden;
-  min-height: 50rem;
-  padding: 8rem 8rem 8rem 8.8rem;
-  border-radius: var(--radius);
-  background-color: #f9d6dc;
-  background-image: url("../img/band-threads.jpg");
-  background-image: image-set(url("../img/band-threads.webp") type("image/webp"), url("../img/band-threads.jpg") type("image/jpeg"));
-  background-size: cover;
-  background-position: right center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(48rem, 62rem);
+  align-items: center;
+  gap: 8rem;
+  min-height: 47rem;
+  padding: 3rem 0;
 }
+.help__body { max-width: 62rem; }
 .help__card .eyebrow { border-color: rgba(68, 44, 26, .5); width: 40rem; }
 .help__text { margin-top: 2.4rem; max-width: 56rem; font-size: max(2rem, 16px); line-height: 2.9rem; }
 .help__actions { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 4rem; }
+.help__media { justify-self: end; width: 100%; max-width: 62rem; overflow: hidden; border-radius: var(--radius); aspect-ratio: 16 / 10; background: var(--pink-soft); }
+.help__media picture { display: block; width: 100%; height: 100%; }
+.help__img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
 /* --- Финальный призыв ----------------------------------------------------- */
 .finale { padding: 14rem 0; }
@@ -1378,9 +1386,6 @@ body {
   .about__grid { grid-template-columns: repeat(2, 1fr); column-gap: 6rem; padding-left: 0; }
   .about__text { max-width: none; }
 
-  .reviews__list { grid-template-columns: repeat(3, minmax(0, 1fr)); justify-content: stretch; gap: 4rem; }
-  .review { height: auto; min-height: 34rem; }
-
   .faq__list { max-width: 100%; }
 
 
@@ -1484,7 +1489,9 @@ body {
   .cats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 
-  .reviews__list { grid-template-columns: 1fr; }
+  .reviews__list { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; gap: 3.2rem; }
+  .reviews__list > li:nth-child(n) { grid-column: auto; grid-row: auto; }
+  .review--long .review__text { max-width: 76rem; font-size: max(2.8rem, 20px); line-height: 3.6rem; }
   .faq__list { margin-top: 5rem; }
 
   /* колонки сложились — центрировать кнопки не по чему */
@@ -1615,10 +1622,7 @@ body {
   .product__media { max-width: 64rem; }
   .specs { margin-top: 6rem; }
 
-  .help__card { min-height: 0; padding: 5.6rem 4.8rem; background-position: 75% center; }
-  /* снимок уходит под текст — подкладываем светлую вуаль */
-  .help__card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(249, 214, 220, .92) 45%, rgba(249, 214, 220, .4)); }
-  .help__card > * { position: relative; }
+  .help__card { grid-template-columns: minmax(0, 1fr) minmax(34rem, 46rem); gap: 4.8rem; min-height: 0; padding: 2rem 0; }
 
   .site-footer__top { grid-template-columns: 1fr 1fr; }
   .site-footer__brand { grid-column: 1 / -1; }
@@ -1667,8 +1671,9 @@ body {
   .steps, .ways__grid { grid-template-columns: minmax(0, 1fr); }
   .step, .way { padding: 2.4rem; }
 
-  .help__card { padding: 4rem 2.4rem; background-position: 70% center; }
-  .help__card::before { background: rgba(249, 214, 220, .85); }
+  .help__card { grid-template-columns: 1fr; gap: 3.2rem; padding: 0; }
+  .help__media { justify-self: stretch; max-width: none; }
+  .review--long .review__text { font-size: max(2.2rem, 18px); line-height: 3rem; }
   .help__card .eyebrow { width: 100%; }
   .help__text { font-size: max(1.7rem, 16px); line-height: 2.5rem; }
   .help__actions .btn { flex: 1 1 100%; }
