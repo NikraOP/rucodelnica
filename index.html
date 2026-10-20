@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="assets/img/hero.webp" type="image/webp" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Playfair:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=thread-tiles-20261017">
+<link rel="stylesheet" href="assets/css/style.css?v=mvgqep6i">
 
 <script type="application/ld+json">
 {
@@ -144,8 +144,8 @@
       </nav>
 
       <p class="site-header__phones">
-        <a class="site-header__phone" href="tel:+79885192525">8 (988) 519 25-25</a>
-        <a class="site-header__phone" href="tel:+79198724738">8 (919) 872 47-38</a>
+        <a class="site-header__phone" href="tel:+79885192525"><svg class="ico" width="22" height="22" aria-hidden="true" focusable="false"><use href="#i-call"></use></svg>8 (988) 519 25-25</a>
+        <a class="site-header__phone" href="tel:+79198724738"><svg class="ico" width="22" height="22" aria-hidden="true" focusable="false"><use href="#i-call"></use></svg>8 (919) 872 47-38</a>
       </p>
     </div>
   </header>
@@ -159,13 +159,33 @@
           <span class="hero__script"><span class="visually-hidden">Швейная</span></span>
           <span class="hero__caps">фурнитура&nbsp;– здесь</span>
         </h1>
-        <p class="hero__lead">Кнопки, молнии, нитки, тесьма, кружево и&nbsp;многое другое для шитья и&nbsp;рукоделия. <br>Работаем в&nbsp;Ростове-на-Дону более 30&nbsp;лет. <br>Оптовые цены&nbsp;— от&nbsp;небольшого количества. Поможем подобрать подходящую фурнитуру.</p>
+        <ul class="hero__facts">
+          <li><span><b>Всё для шитья.</b> Кнопки, молнии, нитки, тесьма, кружево</span></li>
+          <li><span><b>30 лет</b> работаем в&nbsp;Ростове-на-Дону</span></li>
+          <li><span><b>Оптовые цены</b> от&nbsp;небольшого количества</span></li>
+        </ul>
         <div class="hero__actions">
           <a class="btn btn--arrow" href="catalog.html">
             Смотреть ассортимент
             <svg class="btn__arrow" aria-hidden="true"><use href="#i-arrow"></use></svg>
           </a>
-          <a class="btn btn--ghost" href="#order">Оформить заказ</a>
+          <div class="omenu">
+            <button class="btn btn--ghost omenu__btn" type="button" aria-expanded="false" aria-controls="omenu-list">Оформить заказ <svg class="ico omenu__chev" width="22" height="22" aria-hidden="true" focusable="false"><use href="#i-chev"></use></svg></button>
+            <ul class="omenu__list" id="omenu-list" hidden>
+              <li><a href="https://wa.me/79885192525?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7" target="_blank" rel="noopener"><span class="app app--wa app--sm"><svg class="" width="22" height="22" aria-hidden="true" focusable="false"><use href="#i-wa"></use></svg></span>WhatsApp</a></li>
+              <li><a href="https://t.me/furnityra_rostov" target="_blank" rel="noopener"><span class="app app--tg app--sm"><svg class="" width="22" height="22" aria-hidden="true" focusable="false"><use href="#i-tg2"></use></svg></span>Telegram</a></li>
+              <li><a href="https://max.ru/" target="_blank" rel="noopener"><img class="app app--sm" src="assets/img/max-logo.png" width="32" height="32" alt="">Max</a></li>
+              <li><a href="tel:+79885192525"><span class="app app--sm omenu__tel"><svg class="" width="22" height="22" aria-hidden="true" focusable="false"><use href="#i-call"></use></svg></span>Позвонить</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="shopbar">
+        <div class="container shopbar__in">
+          <span class="shopbar__i shopbar__state" data-shop-state="open"><span class="dot"></span><b data-shop-open>Магазин на «Радуге»</b></span>
+          <span class="shopbar__i"><svg class="ico" width="22" height="22" aria-hidden="true" focusable="false"><use href="#i-pin"></use></svg>ул. Лелюшенко, 17А, рынок «Радуга», пав.&nbsp;18–19</span>
+          <span class="shopbar__i"><svg class="ico" width="22" height="22" aria-hidden="true" focusable="false"><use href="#i-clock"></use></svg>Пн, вт, ср, пт, сб 8–16 · чт, вс 8–17</span>
+          <a class="shopbar__i shopbar__route" href="contacts.html">Как добраться</a>
         </div>
       </div>
     </section>
@@ -379,7 +399,7 @@
                 <svg viewBox="0 0 416 384" aria-hidden="true"><use href="#i-star"></use></svg>
                 <svg viewBox="0 0 416 384" aria-hidden="true"><use href="#i-star"></use></svg>
               </p>
-              <blockquote class="review__text"><p>«Плиту из бисера, пришла за ним <br class="br-lg">и резинкой, помогли подобрать. <br class="br-lg">Большой магазин и выбор, хорошие <br class="br-lg">продавцы. Очень довольна.»</p></blockquote>
+              <blockquote class="review__text"><p>«Плету из бисера, пришла за ним <br class="br-lg">и резинкой, помогли подобрать. <br class="br-lg">Большой магазин и выбор, хорошие <br class="br-lg">продавцы. Очень довольна.»</p></blockquote>
               <figcaption class="review__author">Милана П.</figcaption>
             </figure>
           </li>
@@ -462,7 +482,7 @@
       </div>
     </div>
     <div class="container site-footer__inner">
-      <p>Сайт разработан: <a href="https://profi.ru/profile/PopiyevaMS/share" target="_blank" rel="noopener">Milana</a> &amp; <a href="https://profi.ru/profile/IsayevNM4/share" target="_blank" rel="noopener">Nikita</a></p>
+      <p>Сайт разработан: <a href="https://profi.ru/profile/IsayevNM4/share" target="_blank" rel="noopener">Nikita</a></p>
       <p>© 2026 Магазин “Рукодельница” | ИП Бузыкина Ирина Викторовна | ИНН 616822004192 | ОГРНИП 304616810500157</p>
     </div>
   </footer>
@@ -470,6 +490,6 @@
 <a class="call-fab" href="tel:+79885192525" aria-label="Позвонить в магазин">
   <svg viewBox="0 0 434 490" aria-hidden="true" focusable="false"><use href="#i-phone"></use></svg>
 </a>
-<script src="assets/js/main.js?v=27f5bd8c" defer></script>
+<script src="assets/js/main.js?v=mvgqep6i" defer></script>
 </body>
 </html>

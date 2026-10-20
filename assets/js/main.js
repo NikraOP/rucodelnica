@@ -101,3 +101,31 @@
     if (window.innerWidth > 1250) setOpen(false);
   });
 })();
+
+/* Меню «Оформить заказ» и статус магазина на первом экране */
+(function () {
+  var btn = document.querySelector('.omenu__btn');
+  var list = document.getElementById('omenu-list');
+  if (btn && list) {
+    var shut = function () { list.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = list.hidden;
+      list.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', function (e) { if (!list.contains(e.target)) shut(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
+  }
+  var state = document.querySelector('[data-shop-state]');
+  if (!state) return;
+  // пн, вт, ср, пт, сб 8–16; чт, вс 8–17; время Ростова совпадает с московским
+  var close = { 0: 17, 1: 16, 2: 16, 3: 16, 4: 17, 5: 16, 6: 16 };
+  var now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Moscow' }));
+  var d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
+  var open = h >= 8 && h < close[d];
+  state.setAttribute('data-shop-state', open ? 'open' : 'closed');
+  state.querySelector('[data-shop-open]').textContent = open
+    ? 'Открыто до ' + close[d] + ':00'
+    : (h < 8 ? 'Откроемся сегодня в 8:00' : 'Откроемся завтра в 8:00');
+})();
