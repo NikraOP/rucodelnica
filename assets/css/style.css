@@ -535,8 +535,8 @@ body {
 .order__media {
   grid-column: 1;
   grid-row: 1;
-  width: calc(100% + max(0px, (100vw - var(--container)) / 2));
-  margin-left: calc(-1 * max(0px, (100vw - var(--container)) / 2));
+  width: calc(100% + max(0px, (100cqw - var(--container)) / 2));
+  margin-left: calc(-1 * max(0px, (100cqw - var(--container)) / 2));
   min-height: 0;
 }
 .order__media picture { display: block; }
@@ -685,7 +685,7 @@ body {
 }
 
 /* --- Главная: онлайн или в магазине ------------------------------------- */
-.order { padding-bottom: 14rem; }
+.order { container-type: inline-size; padding-bottom: 14rem; }
 .ways-mini { display: grid; gap: 2.8rem; margin-top: 4rem; }
 .way-mini { display: flex; align-items: flex-start; gap: 2rem; }
 .way-mini__icon {
