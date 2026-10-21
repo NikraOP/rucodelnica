@@ -1738,8 +1738,12 @@ body {
 
 .omenu { position: relative; min-width: 30rem; }
 .omenu__btn { width: 100%; gap: 1.2rem; }
-.omenu__chev { width: 1.6rem; height: 1.6rem; transition: transform .25s ease; }
-.omenu__btn[aria-expanded="true"] .omenu__chev { transform: rotate(180deg); }
+.omenu__arrow { transform: rotate(135deg); }
+.omenu__btn:hover .omenu__arrow,
+.omenu__btn:focus-visible .omenu__arrow { transform: translateY(.3rem) rotate(135deg); }
+.omenu__btn[aria-expanded="true"] .omenu__arrow { transform: rotate(315deg); }
+.omenu__btn[aria-expanded="true"]:hover .omenu__arrow,
+.omenu__btn[aria-expanded="true"]:focus-visible .omenu__arrow { transform: translateY(-.3rem) rotate(315deg); }
 .omenu__list { position: absolute; z-index: 15; left: 0; right: 0; top: calc(100% + .8rem); margin: 0; padding: .8rem; list-style: none; background: var(--white); border-radius: 2.4rem; box-shadow: 0 1.6rem 4rem rgba(68, 44, 26, .18); }
 .omenu__list a { display: flex; align-items: center; gap: 1.4rem; min-height: 5.2rem; padding: 0 1.6rem; border-radius: 1.6rem; font-size: max(1.7rem, 16px); font-weight: 600; text-decoration: none; }
 .omenu__list a:hover, .omenu__list a:focus-visible { background: var(--pink-pill); }
