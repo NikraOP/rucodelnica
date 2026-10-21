@@ -1086,7 +1086,24 @@ body {
 
 /* --- О магазине ---------------------------------------------------------- */
 .about--page { padding: 8rem 0 10rem; }
-.storefront__frame { aspect-ratio: 1099 / 529; margin: 0 25.2rem 0 11.4rem; }
+.storefront__frame { aspect-ratio: 1099 / 529; width: min(100%, 112rem); margin-inline: auto; }
+.store-gallery { margin-top: 8rem; }
+.store-gallery__head { display: flex; align-items: end; justify-content: space-between; gap: 3rem; margin-bottom: 3.6rem; }
+.store-gallery__head .section-title { margin-top: 2rem; }
+.store-gallery__intro { max-width: 42rem; font-size: max(1.7rem, 16px); line-height: 2.6rem; }
+.store-gallery__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 21rem; gap: 2rem; }
+.store-gallery__item { position: relative; overflow: hidden; min-width: 0; border-radius: var(--radius); background: var(--pink-soft); }
+.store-gallery__item[hidden] { display: none; }
+.store-gallery__item--lead { grid-row: span 2; }
+.store-gallery__item--wide { grid-column: span 2; }
+.store-gallery__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.store-gallery__item:hover img { transform: scale(1.04); }
+.store-gallery__item figcaption { position: absolute; left: 1.6rem; bottom: 1.6rem; padding: .8rem 1.4rem; border-radius: 2rem; background: rgba(255,255,255,.92); font-size: max(1.5rem, 14px); font-weight: 600; }
+.store-gallery__more { display: flex; margin: 3.6rem auto 0; gap: 1.8rem; }
+.store-gallery__more .btn__arrow { transform: rotate(135deg); }
+.store-gallery__more:hover .btn__arrow, .store-gallery__more:focus-visible .btn__arrow { transform: translateY(.3rem) rotate(135deg); }
+.store-gallery__more[aria-expanded="true"] .btn__arrow { transform: rotate(315deg); }
+.store-gallery__more[aria-expanded="true"]:hover .btn__arrow, .store-gallery__more[aria-expanded="true"]:focus-visible .btn__arrow { transform: translateY(-.3rem) rotate(315deg); }
 .storefront + .features { padding: 10rem 0; }
 
 /* --- Как заказать -------------------------------------------------------- */
@@ -1316,7 +1333,7 @@ body {
 /* --- ноутбуки: макет сохраняется, сетка становится резиновой -------------- */
 @media (max-width: 1400px) {
   :root { font-size: 0.5rem; }
-  .storefront__frame { margin-inline: 0; }
+  .store-gallery__grid { grid-auto-rows: 18rem; }
 
   .container { max-width: 100%; padding-inline: 4rem; }
   .decor { display: none; }
@@ -1660,7 +1677,12 @@ body {
   .order__write { padding: 2rem; }
   .order__write-label { font-size: max(1.7rem, 16px); }
   .order__apps { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .storefront__frame { margin-inline: 0; }
+  .store-gallery { margin-top: 6rem; }
+  .store-gallery__head { display: block; }
+  .store-gallery__intro { margin-top: 1.6rem; }
+  .store-gallery__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 18rem; gap: 1.2rem; }
+  .store-gallery__item--lead { grid-column: 1 / -1; grid-row: span 2; }
+  .store-gallery__item--wide { grid-column: span 1; }
   .storefront + .features { padding: 7rem 0; }
   .site-footer__top { grid-template-columns: minmax(0, 1fr); }
 }

@@ -12,6 +12,21 @@
   window.addEventListener('scroll', sync, { passive: true });
 })();
 
+/* Фотографии магазина на странице «О магазине» */
+(function () {
+  var button = document.querySelector('.store-gallery__more');
+  var gallery = document.getElementById('store-gallery-photos');
+  if (!button || !gallery) return;
+  var label = button.querySelector('.store-gallery__more-label');
+  var extra = gallery.querySelectorAll('.store-gallery__item[hidden]');
+  button.addEventListener('click', function () {
+    var expanded = button.getAttribute('aria-expanded') === 'true';
+    extra.forEach(function (photo) { photo.hidden = expanded; });
+    button.setAttribute('aria-expanded', String(!expanded));
+    label.textContent = expanded ? 'Смотреть все фото' : 'Свернуть фото';
+  });
+})();
+
 /* Плавное появление блоков при прокрутке */
 (function () {
   'use strict';
