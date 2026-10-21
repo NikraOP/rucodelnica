@@ -518,11 +518,11 @@ body {
 /* --- Как заказать ----------------------------------------------------- */
 .order__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   align-items: center;
   gap: 8rem;
 }
-.order__body { grid-column: 2; grid-row: 1; }
+.order__body { grid-column: 1; grid-row: 1; }
 .order__text { margin-top: 3.2rem; max-width: 52rem; font-size: max(2rem, 16px); line-height: 2.9rem; }
 .order__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 2rem 3.2rem; margin-top: 4rem; }
 .order__alt {
@@ -534,17 +534,20 @@ body {
 .order__alt:hover, .order__alt:focus-visible { color: var(--pink); }
 
 .order__media {
-  grid-column: 1;
+  grid-column: 2;
   grid-row: 1;
   width: calc(100% + max(0px, (100cqw - var(--container)) / 2));
-  margin-left: calc(-1 * max(0px, (100cqw - var(--container)) / 2));
+  margin-right: calc(-1 * max(0px, (100cqw - var(--container)) / 2));
+  align-self: stretch;
   min-height: 0;
 }
-.order__media picture { display: block; }
+.order__media picture { display: block; width: 100%; height: 100%; }
 .order__img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 /* --- О нас -------------------------------------------------------------- */
@@ -1342,7 +1345,7 @@ body {
   .store-gallery__grid { grid-template-rows: auto 22rem; grid-auto-rows: 18rem; }
 
   .container { max-width: 100%; padding-inline: 4rem; }
-  .order__media { width: calc(100% + 4rem); margin-left: -4rem; }
+  .order__media { width: calc(100% + 4rem); margin-right: -4rem; }
   .decor { display: none; }
 
   .site-header__inner { padding-inline: 4rem; }
@@ -1452,6 +1455,7 @@ body {
   .reviews { padding: 6rem 0; }
   .order__grid { grid-template-columns: minmax(0, 1fr); gap: 5rem; }
   .order__body, .order__media { grid-column: 1; grid-row: auto; }
+  .order__media { width: 100%; margin-right: 0; aspect-ratio: 16 / 10; }
   .discounts { padding-top: 4rem; }
   .discounts + .assortment { padding-top: 6rem; }
   .section-title { font-size: 5.6rem; line-height: 6.4rem; margin: 2.4rem 0 0; }
