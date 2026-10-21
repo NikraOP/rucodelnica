@@ -814,14 +814,6 @@ body {
   transform: rotate(var(--img-rotation, 0deg)) scaleX(var(--img-flip, 1));
 }
 .pcard:hover .pcard__img.image--slider { transform: rotate(var(--img-rotation, 0deg)) scaleX(var(--img-flip, 1)); }
-.cat.cat--grp-begunki picture { background: #fff; }
-.cat.cat--grp-begunki .cat__img {
-  box-sizing: border-box;
-  padding: 16px;
-  object-fit: contain;
-  object-position: center;
-  background: #fff;
-}
 .pcard__name {
   display: -webkit-box;
   overflow: hidden;
