@@ -1103,17 +1103,16 @@ body {
 /* --- О магазине ---------------------------------------------------------- */
 .about--page { padding: 8rem 0 10rem; }
 .store-gallery { margin-top: 0; }
-.store-gallery__head { margin-bottom: 3.6rem; }
-.store-gallery__head .section-title { margin-top: 2rem; }
-.store-gallery__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto 25rem; grid-auto-rows: 22rem; gap: 2rem; }
-.store-gallery__item { position: relative; overflow: hidden; min-width: 0; border-radius: var(--radius); background: var(--pink-soft); }
+.store-gallery__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, .5fr); align-items: end; gap: 3rem; margin-bottom: 3.6rem; }
+.store-gallery__head .section-title { margin: 0; }
+.store-gallery__intro { margin: 0 0 .7rem; font-family: var(--font-display); font-size: 3.2rem; font-style: italic; line-height: 1.15; text-align: right; }
+.store-gallery__item { min-width: 0; margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--pink-soft); }
 .store-gallery__item[hidden] { display: none; }
-.store-gallery__item--main { grid-column: span 2; aspect-ratio: 1099 / 529; }
-.store-gallery__item--main picture { display: block; width: 100%; height: 100%; }
-.store-gallery__item--lace { grid-column: span 2; }
-.store-gallery__item img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
-.store-gallery__item--main img { object-fit: contain; }
-.store-gallery__item:not(.store-gallery__item--main):hover img { transform: scale(1.04); }
+.store-gallery__item--main { margin-bottom: 2rem; }
+.store-gallery__item picture { display: block; }
+.store-gallery__item img { display: block; width: 100%; height: auto; }
+.store-gallery__interiors { columns: 3; column-gap: 2rem; }
+.store-gallery__interiors .store-gallery__item { break-inside: avoid; margin-bottom: 2rem; }
 .store-gallery__more { display: flex; margin: 3.6rem auto 0; gap: 1.8rem; }
 .store-gallery__more:hover .disclosure-chevron, .store-gallery__more:focus-visible .disclosure-chevron { transform: translateY(.3rem); }
 .store-gallery__more[aria-expanded="true"] .disclosure-chevron { transform: rotate(180deg); }
@@ -1347,7 +1346,6 @@ body {
 /* --- ноутбуки: макет сохраняется, сетка становится резиновой -------------- */
 @media (max-width: 1400px) {
   :root { font-size: 0.5rem; }
-  .store-gallery__grid { grid-template-rows: auto 22rem; grid-auto-rows: 18rem; }
 
   .container { max-width: 100%; padding-inline: 4rem; }
   .order__media { width: calc(100% + 4rem); margin-right: -4rem; }
@@ -1693,15 +1691,17 @@ body {
   .order__write { padding: 2rem; }
   .order__write-label { font-size: max(1.7rem, 16px); }
   .order__apps { display: grid; grid-template-columns: minmax(0, 1fr); }
-  .store-gallery__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; grid-auto-rows: 18rem; gap: 1.2rem; }
-  .store-gallery__item--main { grid-column: 1 / -1; }
-  .store-gallery__item--lace { grid-column: span 1; }
-  .store-gallery__item--fasteners, .store-gallery__item:last-child { grid-column: 1 / -1; }
+  .store-gallery__head { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .store-gallery__intro { text-align: left; }
+  .store-gallery__interiors { columns: 2; column-gap: 1.2rem; }
+  .store-gallery__item--main, .store-gallery__interiors .store-gallery__item { margin-bottom: 1.2rem; }
   .storefront + .features { padding: 7rem 0; }
   .site-footer__top { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 640px) {
+  .store-gallery__interiors { columns: 1; }
+  .store-gallery__intro { font-size: 2.8rem; }
   .finale__actions { grid-template-columns: minmax(0, 1fr); }
   .review__text { font-size: max(1.6rem, 16px); line-height: 2.5rem; }
 }

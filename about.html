@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Playfair:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=store-gallery-rounded-chevron-20261021">
+  <link rel="stylesheet" href="assets/css/style.css?v=store-gallery-complete-20261021">
 
 <script type="application/ld+json">
 {
@@ -191,10 +191,8 @@
       <div class="container">
         <div class="store-gallery">
           <div class="store-gallery__head">
-            <div>
-              <p class="eyebrow">Фотографии магазина</p>
-              <h2 class="section-title">Загляните <em>к нам</em></h2>
-            </div>
+            <h2 class="section-title">Фотографии <em>магазина</em></h2>
+            <p class="store-gallery__intro">Загляните к нам</p>
           </div>
           <div class="store-gallery__grid" id="store-gallery-photos">
             <figure class="store-gallery__item store-gallery__item--main">
@@ -203,24 +201,44 @@
                 <img src="assets/img/shop.jpg" width="1099" height="529" loading="lazy" decoding="async" alt="Вход в магазин «Рукодельница» на рынке «Радуга» в Ростове-на-Дону">
               </picture>
             </figure>
-            <figure class="store-gallery__item store-gallery__item--threads">
-              <img src="assets/img/about-threads.webp" width="963" height="1280" loading="lazy" decoding="async" alt="Стеллаж с нитками и лентами в магазине">
-            </figure>
-            <figure class="store-gallery__item store-gallery__item--lace">
-              <img src="assets/img/about-lace.webp" width="1280" height="960" loading="lazy" decoding="async" alt="Кружево на полках магазина">
-            </figure>
-            <figure class="store-gallery__item store-gallery__item--fasteners">
-              <img src="assets/img/about-fasteners.webp" width="1280" height="963" loading="lazy" decoding="async" alt="Разнообразная металлическая фурнитура в магазине">
-            </figure>
-            <figure class="store-gallery__item" hidden>
-              <img src="assets/img/about-interior.webp" width="960" height="1280" loading="lazy" decoding="async" alt="Общий вид ассортимента внутри магазина">
-            </figure>
-            <figure class="store-gallery__item" hidden>
-              <img src="assets/img/about-trims.webp" width="800" height="602" loading="lazy" decoding="async" alt="Декоративная тесьма и кружево на витрине">
-            </figure>
-            <figure class="store-gallery__item" hidden>
-              <img src="assets/img/about-shelves.webp" width="1280" height="963" loading="lazy" decoding="async" alt="Полки с лентами, стразами и товарами для рукоделия">
-            </figure>
+            <div class="store-gallery__interiors">
+              <figure class="store-gallery__item">
+                <img src="assets/img/about-threads.webp" width="963" height="1280" loading="lazy" decoding="async" alt="Стеллаж с нитками и лентами в магазине">
+              </figure>
+              <figure class="store-gallery__item">
+                <img src="assets/img/about-lace.webp" width="1280" height="960" loading="lazy" decoding="async" alt="Кружево на полках магазина">
+              </figure>
+              <figure class="store-gallery__item">
+                <img src="assets/img/about-counter.webp" width="960" height="1280" loading="lazy" decoding="async" alt="Прилавок и стеллажи магазина">
+              </figure>
+              <figure class="store-gallery__item">
+                <img src="assets/img/about-ribbon-shelves.webp" width="1280" height="964" loading="lazy" decoding="async" alt="Полки с разноцветными лентами">
+              </figure>
+              <figure class="store-gallery__item">
+                <img src="assets/img/about-buttons.webp" width="963" height="1280" loading="lazy" decoding="async" alt="Контейнеры с пуговицами и фурнитурой">
+              </figure>
+              <figure class="store-gallery__item">
+                <img src="assets/img/about-lace-display.webp" width="602" height="800" loading="lazy" decoding="async" alt="Кружево на витрине магазина">
+              </figure>
+              <figure class="store-gallery__item" hidden>
+                <img src="assets/img/about-fasteners.webp" width="1280" height="963" loading="lazy" decoding="async" alt="Разнообразная металлическая фурнитура в магазине">
+              </figure>
+              <figure class="store-gallery__item" hidden>
+                <img src="assets/img/about-interior.webp" width="960" height="1280" loading="lazy" decoding="async" alt="Общий вид ассортимента внутри магазина">
+              </figure>
+              <figure class="store-gallery__item" hidden>
+                <img src="assets/img/about-trims.webp" width="800" height="602" loading="lazy" decoding="async" alt="Декоративная тесьма и кружево на витрине">
+              </figure>
+              <figure class="store-gallery__item" hidden>
+                <img src="assets/img/about-shelves.webp" width="1280" height="963" loading="lazy" decoding="async" alt="Полки с лентами, стразами и товарами для рукоделия">
+              </figure>
+              <figure class="store-gallery__item" hidden>
+                <img src="assets/img/about-trim-shelves.webp" width="1280" height="963" loading="lazy" decoding="async" alt="Деревянные полки с декоративной тесьмой">
+              </figure>
+              <figure class="store-gallery__item" hidden>
+                <img src="assets/img/about-cords.webp" width="1280" height="964" loading="lazy" decoding="async" alt="Декоративные шнуры и товары для рукоделия">
+              </figure>
+            </div>
           </div>
           <button class="btn btn--ghost store-gallery__more" type="button" aria-controls="store-gallery-photos" aria-expanded="false"><span class="store-gallery__more-label">Смотреть все фото</span><svg class="disclosure-chevron" viewBox="0 0 64 48" aria-hidden="true" focusable="false"><path d="M8 8 32 34 56 8" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </div>
