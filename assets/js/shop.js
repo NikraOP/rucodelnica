@@ -183,7 +183,7 @@
         '</div></details>';
     }
     function chevron() {
-      return '<svg viewBox="0 0 432 324" aria-hidden="true"><use href="#i-chev"></use></svg>';
+      return '<svg class="disclosure-chevron" viewBox="0 0 64 48" aria-hidden="true"><path d="M8 8 32 34 56 8" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     }
 
     var form = $('filters-form');
@@ -387,7 +387,7 @@
           '<p class="product__retail">' + money(p.retail, true) + ' <span>розница</span></p>' +
           '<p class="product__unit">Цена за единицу: <b>' + unitPrice(p) + '</b> · в упаковке ' + p.pack + ' ' + p.unit + '</p>') +
           '<details class="order-pick">' +
-            '<summary class="btn btn--arrow">Оформить заказ<svg class="btn__arrow" aria-hidden="true"><use href="#i-arrow"></use></svg></summary>' +
+            '<summary class="btn btn--arrow">Оформить заказ<svg class="disclosure-chevron" viewBox="0 0 64 48" aria-hidden="true"><path d="M8 8 32 34 56 8" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>' +
             '<div class="order-pick__panel"><span class="order-pick__label">Написать в</span>' +
               appLink('tg', 'Telegram', TG) + appLink('max', 'Max', MAX) +
               appLink('wa', 'WhatsApp', 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg)) + '</div>' +
