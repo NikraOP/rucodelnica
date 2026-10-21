@@ -514,7 +514,7 @@ body {
 .order__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  align-items: center;
+  align-items: stretch;
   gap: 8rem;
 }
 .order__text { margin-top: 3.2rem; max-width: 52rem; font-size: max(2rem, 16px); line-height: 2.9rem; }
@@ -530,7 +530,7 @@ body {
 .order__media {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
+  min-height: 0;
   border-radius: var(--radius);
   background: var(--pink-soft);
 }
@@ -538,48 +538,8 @@ body {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: 78% 50%;
+  object-position: 50% 50%;
 }
-/* переписка поверх свободной части снимка — фото «становится» мессенджером */
-.order__chat {
-  position: absolute;
-  left: 3.2rem;
-  top: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  width: 42%;
-  transform: translateY(-50%);
-}
-.bubble {
-  position: relative;
-  padding: 1.4rem 1.8rem 2.6rem;
-  border-radius: 2rem;
-  font-size: max(1.5rem, 16px);
-  line-height: 2.1rem;
-  box-shadow: 0 .8rem 2.4rem rgba(68, 44, 26, .14);
-}
-.bubble--in { align-self: flex-start; background: var(--white); border-bottom-left-radius: .6rem; }
-.bubble--out {
-  align-self: flex-end;
-  margin-right: -2rem;
-  background: var(--brown);
-  color: var(--on-brown);
-  border-bottom-right-radius: .6rem;
-}
-.bubble__time {
-  position: absolute;
-  right: 1.6rem;
-  bottom: .8rem;
-  font-size: max(1.1rem, 13px);
-  line-height: 1;
-  opacity: .6;
-}
-/* сообщения появляются по очереди, когда блок попадает в экран */
-.js-anim .order__media .bubble { opacity: 0; transform: translateY(1.6rem) scale(.96); transition: opacity .45s ease, transform .45s cubic-bezier(.33, 1, .68, 1); }
-.js-anim .order__media.is-visible .bubble { opacity: 1; transform: none; }
-.js-anim .order__media.is-visible .bubble--in { transition-delay: .35s; }
-.js-anim .order__media.is-visible .bubble--out { transition-delay: 1.1s; }
 
 /* --- О нас -------------------------------------------------------------- */
 .about { padding-bottom: 14rem; }
@@ -1475,7 +1435,7 @@ body {
   .faq .section-head { padding-top: 9rem; }
   .reviews { padding: 6rem 0; }
   .order__grid { grid-template-columns: minmax(0, 1fr); gap: 5rem; }
-  .order__chat { width: 46%; }
+  .order__media { min-height: 45rem; }
   .discounts { padding-top: 4rem; }
   .discounts + .assortment { padding-top: 6rem; }
   .section-title { font-size: 5.6rem; line-height: 6.4rem; margin: 2.4rem 0 0; }
@@ -1536,12 +1496,7 @@ body {
   .reviews { padding: 5rem 0; }
   .order__text { font-size: max(1.7rem, 16px); line-height: 2.5rem; margin-top: 2.4rem; }
   .order__actions { margin-top: 3rem; }
-  .order__media { aspect-ratio: 4 / 3; border-radius: 2rem; }
-  .order__img { object-position: 72% 50%; }
-  .order__chat { left: 1.6rem; width: 60%; gap: .8rem; }
-  .bubble { padding: 1rem 1.2rem 2rem; font-size: max(1.25rem, 13px); line-height: 1.7rem; border-radius: 1.4rem; }
-  .bubble--out { margin-right: -1.2rem; }
-  .bubble__time { font-size: 1rem; right: 1.2rem; bottom: .6rem; }
+  .order__media { min-height: 32rem; border-radius: 2rem; }
   .discounts { padding-top: 3.2rem; }
   .discounts + .assortment { padding-top: 5rem; }
 
