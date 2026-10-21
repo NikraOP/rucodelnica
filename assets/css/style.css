@@ -431,9 +431,10 @@ body {
 .cat {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
+  align-items: center;
+  gap: .6rem;
   height: 100%;
-  padding: 1rem 1rem 2.2rem;
+  padding: .8rem .8rem 1.8rem;
   border: 1px solid var(--pink-border);
   border-radius: var(--radius);
   background: var(--white);
@@ -443,7 +444,9 @@ body {
 }
 .cat picture {
   position: relative;
-  aspect-ratio: 4 / 3;
+  width: 100%;
+  aspect-ratio: 1;
+  margin-bottom: 1rem;
   overflow: hidden;
   border-radius: var(--radius);
   background: var(--pink-soft);
@@ -458,6 +461,7 @@ body {
   font-size: max(2rem, 16px);
   line-height: 2.6rem;
   font-weight: 600;
+  text-align: center;
   overflow-wrap: break-word;
   transition: color .2s ease;
 }
@@ -513,10 +517,11 @@ body {
 /* --- Как заказать ----------------------------------------------------- */
 .order__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
   gap: 8rem;
 }
+.order__body { grid-column: 2; grid-row: 1; }
 .order__text { margin-top: 3.2rem; max-width: 52rem; font-size: max(2rem, 16px); line-height: 2.9rem; }
 .order__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 2rem 3.2rem; margin-top: 4rem; }
 .order__alt {
@@ -528,17 +533,17 @@ body {
 .order__alt:hover, .order__alt:focus-visible { color: var(--pink); }
 
 .order__media {
-  position: relative;
-  overflow: hidden;
+  grid-column: 1;
+  grid-row: 1;
+  width: calc(100% + max(0px, (100vw - var(--container)) / 2));
+  margin-left: calc(-1 * max(0px, (100vw - var(--container)) / 2));
   min-height: 0;
-  border-radius: var(--radius);
-  background: var(--pink-soft);
 }
+.order__media picture { display: block; }
 .order__img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* --- О нас -------------------------------------------------------------- */
@@ -1336,6 +1341,7 @@ body {
   .store-gallery__grid { grid-auto-rows: 18rem; }
 
   .container { max-width: 100%; padding-inline: 4rem; }
+  .order__media { width: calc(100% + 4rem); margin-left: -4rem; }
   .decor { display: none; }
 
   .site-header__inner { padding-inline: 4rem; }
@@ -1444,7 +1450,7 @@ body {
   .faq .section-head { padding-top: 9rem; }
   .reviews { padding: 6rem 0; }
   .order__grid { grid-template-columns: minmax(0, 1fr); gap: 5rem; }
-  .order__media { min-height: 45rem; }
+  .order__body, .order__media { grid-column: 1; grid-row: auto; }
   .discounts { padding-top: 4rem; }
   .discounts + .assortment { padding-top: 6rem; }
   .section-title { font-size: 5.6rem; line-height: 6.4rem; margin: 2.4rem 0 0; }
@@ -1505,7 +1511,7 @@ body {
   .reviews { padding: 5rem 0; }
   .order__text { font-size: max(1.7rem, 16px); line-height: 2.5rem; margin-top: 2.4rem; }
   .order__actions { margin-top: 3rem; }
-  .order__media { min-height: 32rem; border-radius: 2rem; }
+  .order__media { min-height: 0; }
   .discounts { padding-top: 3.2rem; }
   .discounts + .assortment { padding-top: 5rem; }
 
