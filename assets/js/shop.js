@@ -55,13 +55,14 @@
     if (!img) return '<span class="ph ' + cls + '" aria-hidden="true"><svg viewBox="0 0 440 440"><use href="#i-bag"></use></svg></span>';
     var hasExt = /\.webp$/i.test(img);
     var slider = /^slider-\d{2}\.webp$/.test(img);
+    var sliderNew = slider && Number(img.slice(7, 9)) >= 28;
     var lace = /^lace-\d{2}\.webp$/.test(img);
     if (['lace-26.webp', 'lace-32.webp', 'lace-49.webp'].indexOf(img) !== -1) cls += ' image--fill';
     var v = D.imgv && D.imgv[img] ? '?v=' + D.imgv[img] : '';
     var style = (!slider && pos != null ? 'object-position:' + pos + '% 50%;' : '') + (slider || rotate ? '--img-rotation:' + (rotate || 0) + 'deg;' : '');
     if (img === 'slider-02.webp') style += '--img-flip:-1;';
     return '<picture><source type="image/webp" srcset="assets/img/' + (hasExt ? img : img + '.webp') + v + '">' +
-      '<img class="' + cls + (rotate ? ' image--rotated' : '') + (slider ? ' image--slider' : '') + (lace ? ' image--lace' : '') + '" src="assets/img/' + (hasExt ? img : img + '.jpg') + v + '" alt="' + esc(alt) + '"' +
+      '<img class="' + cls + (rotate ? ' image--rotated' : '') + (slider ? ' image--slider' : '') + (sliderNew ? ' image--slider-new' : '') + (lace ? ' image--lace' : '') + '" src="assets/img/' + (hasExt ? img : img + '.jpg') + v + '" alt="' + esc(alt) + '"' +
       (style ? ' style="' + style + '"' : '') +
       (eager ? '' : ' loading="lazy"') + ' decoding="async"></picture>';
   }
@@ -421,6 +422,12 @@
       '<p>Возможно, ссылка устарела. <a href="catalog.html">Перейти в каталог</a></p></div>';
   }
 
+  if (page === 'catalog') {
+    var preview = $('begunki-preview');
+    if (preview) preview.innerHTML = D.products.filter(function (p) {
+      return p.cat === 'begunki' && /^slider-(?:2[89]|3\d)\.webp$/.test(p.img);
+    }).sort(byPop).map(card).join('');
+  }
   if (page === 'category') initCategory();
   if (page === 'product') initProduct();
 })();

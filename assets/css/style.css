@@ -823,6 +823,11 @@ body {
   transform: rotate(var(--img-rotation, 0deg)) scaleX(var(--img-flip, 1));
 }
 .pcard:hover .pcard__img.image--slider { transform: rotate(var(--img-rotation, 0deg)) scaleX(var(--img-flip, 1)); }
+.pcard__img.image--slider-new,
+.product__img.image--slider-new { padding: 0; object-fit: cover; object-position: center 54%; }
+.catalog-preview { padding: 8rem 0 12rem; }
+.catalog-preview__head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+.catalog-preview__head .section-title { margin: 2rem 0 0; }
 .pcard__name {
   display: -webkit-box;
   overflow: hidden;
